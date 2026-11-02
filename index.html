@@ -202,7 +202,7 @@
   .sec-label{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px;font-weight:600}
   .sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4vw,2.9rem);letter-spacing:-.02em;font-weight:700}
 
-  /* ---------- PORTFOLIO CTA (НОВЫЙ БЛОК) ---------- */
+  /* ---------- PORTFOLIO CTA ---------- */
   .portfolio-cta-section { text-align: center; }
   .portfolio-disclaimer {
     color: var(--muted); font-size: .95rem; line-height: 1.65;
@@ -549,10 +549,47 @@
 
   /* ---------- REVIEWS ---------- */
   .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
-  .reviews-actions { display: flex; gap: 10px; align-items: center; }
+  .reviews-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap;}
+  
+  /* ОБНОВЛЕНО: Плашка авторизации */
   .auth-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 10px 20px; border-radius: 999px; cursor: pointer; font-size: .85rem; transition: .3s; font-weight: 500; font-family: inherit;}
   .auth-btn:hover { border-color: var(--accent); color: var(--accent-2); }
-  .auth-status { font-size: .85rem; color: var(--green); font-weight: 500; }
+  
+  .auth-status { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 12px; 
+    background: rgba(74, 222, 128, 0.1); 
+    border: 1px solid rgba(74, 222, 128, 0.3); 
+    padding: 8px 16px; 
+    border-radius: 999px; 
+    font-size: .85rem; 
+    color: var(--text);
+    animation: popIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .auth-status .user-name {
+    font-weight: 600;
+    color: var(--green);
+  }
+  .logout-btn {
+    background: transparent;
+    border: none;
+    color: var(--red);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: .8rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: .2s;
+    font-family: inherit;
+  }
+  .logout-btn:hover {
+    background: rgba(255, 45, 85, 0.15);
+  }
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
 
   .reviews-list { display: flex; flex-direction: column; gap: 20px; }
   .reviews-empty { text-align:center; padding:80px 30px; background:var(--card); border:1px dashed var(--border); border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; gap:16px;}
@@ -971,7 +1008,21 @@
     .burger{display:block}
     .services-grid{grid-template-columns:1fr}
     
-    /* ОБНОВЛЕНО: Обо мне на мобильных (убрана подсветка текста) */
+    /* ОБНОВЛЕНО: ЖЕСТКАЯ БЛОКИРОВКА ПОДСВЕТКИ ДЛЯ МОБИЛЬНЫХ */
+    * {
+      -webkit-tap-highlight-color: transparent !important;
+    }
+    .about-visual, .about-reveal, .about-reveal p, .about-text, .about-text p,
+    .contact-card, .contact-card * {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    /* Обо мне на мобильных */
     .about-grid{grid-template-columns:1fr;gap:20px}
     .about-visual {
       aspect-ratio: auto; min-height: auto; background: transparent; border: none;
@@ -981,22 +1032,12 @@
     .about-ya { display: none; }
     .about-hint { display: none; }
     
-    /* Отключаем выделение и подсветку для всех элементов внутри about */
-    .about-visual, .about-reveal, .about-reveal p {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
     .about-reveal {
       position: relative; opacity: 1; transform: none; padding: 0; overflow: visible;
     }
     .about-reveal p { font-size: 1rem; color: var(--muted); }
     
-    /* ОБНОВЛЕНО: Карточки контактов на мобильных (открыты сразу) */
+    /* Карточки контактов на мобильных (открыты сразу) */
     .contact-card {
       height: auto;
       padding: 24px 20px;
@@ -1017,6 +1058,13 @@
       position: relative; left: auto; right: auto; bottom: auto;
       opacity: 1; transform: none; pointer-events: auto; margin-top: auto;
     }
+    
+    /* ОБНОВЛЕНО: Плашка авторизации на мобильных */
+    .auth-status {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .reviews-actions { width: 100%; justify-content: space-between; }
 
     section{padding:80px 0}
     footer{justify-content:center;text-align:center;flex-direction:column;}
@@ -1295,9 +1343,7 @@
     <div>© <span id="year"></span> DouleRs.com. Все права защищены.</div>
     <div>Сделано с любовью<svg class="footer-heart-icon" viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
     
-    <!-- Кнопка для сообщения об ошибке -->
     <a href="#" id="reportBugBtn" class="footer-bug-link">🐞 Нашли ошибку?</a>
-  
   </footer>
 </div>
 
@@ -1309,7 +1355,6 @@
 
 <!-- ОСНОВНОЙ СКРИПТ САЙТА -->
 <script>
-/* ================= ЛОАДЕР ================= */
 const loader = document.getElementById('loader');
 let loaderHidden = false;
 function hideLoader(){
@@ -1321,7 +1366,6 @@ function hideLoader(){
 window.addEventListener('load', ()=> setTimeout(hideLoader, 450));
 setTimeout(hideLoader, 1800);
 
-/* ================= МОДАЛКА (ВОЗВРАЩЕНО ЗАКРЫТИЕ) ================= */
 const modal = document.getElementById('modal');
 const modalBox = document.getElementById('modalBox');
 const modalClose = document.getElementById('modalClose');
@@ -1334,7 +1378,6 @@ modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
 document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeModal(); });
 
-/* ================= КНОПКА "В ЧЕСТЬ ЧЕГО СКИДКИ?" ================= */
 const discountInfoBtn = document.getElementById('discountInfoBtn');
 const discountInfoPanel = document.getElementById('discountInfoPanel');
 if(discountInfoBtn && discountInfoPanel){
@@ -1345,7 +1388,6 @@ if(discountInfoBtn && discountInfoPanel){
   });
 }
 
-/* ================= КАРТОЧКА "Я" ================= */
 const aboutCard = document.getElementById('aboutCard');
 if(aboutCard){
   aboutCard.addEventListener('click', ()=>{
@@ -1356,7 +1398,6 @@ if(aboutCard){
   });
 }
 
-/* ================= ПЛАШКИ КОНТАКТОВ ================= */
 document.querySelectorAll('.contact-card:not(.contact-card--form)').forEach(card=>{
   card.addEventListener('click', (e)=>{
     if(e.target.closest('.cc-go')) return;
@@ -1372,7 +1413,6 @@ document.addEventListener('click', e=>{
   }
 });
 
-/* ================= КАРТОЧКА "ПОДАТЬ ЗАЯВКУ" ================= */
 const formCard = document.getElementById('formCard');
 if(formCard){
   formCard.addEventListener('click', (e)=>{
@@ -1381,18 +1421,12 @@ if(formCard){
   });
 }
 
-/* ================= АНИМАЦИЯ СЕРДЕЧКА ================= */
 let loveAnimating = false;
-
-const HEART_SVG = `
-  <svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path fill="currentColor" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
-  </svg>`;
+const HEART_SVG = `<svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>`;
 
 function playLoveAnimation(buttonEl, url){
   if(loveAnimating) return;
   loveAnimating = true;
-
   const rect = buttonEl.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
@@ -1412,11 +1446,9 @@ function playLoveAnimation(buttonEl, url){
 
   setTimeout(()=>{
     if(url && url !== 'mailto:' && url !== '#' && url !== ''){
-      if(url.startsWith('mailto:')){
-        window.location.href = url;
-      } else if (url === 'zayavka.html') {
-        window.location.href = url;
-      } else {
+      if(url.startsWith('mailto:')) window.location.href = url;
+      else if (url === 'zayavka.html') window.location.href = url;
+      else {
         const w = window.open(url, '_blank');
         if(!w) window.location.href = url;
       }
@@ -1437,18 +1469,13 @@ document.querySelectorAll('.cc-go:not(.cc-go--form)').forEach(link=>{
   });
 });
 
-/* ================= REVEAL ================= */
 const rvIO = new IntersectionObserver((entries)=>{
   entries.forEach(en=>{
-    if(en.isIntersecting){
-      en.target.classList.add('in');
-      rvIO.unobserve(en.target);
-    }
+    if(en.isIntersecting){ en.target.classList.add('in'); rvIO.unobserve(en.target); }
   });
 }, { threshold:0.15, rootMargin:'0px 0px -60px 0px' });
 document.querySelectorAll('.rv').forEach(el=> rvIO.observe(el));
 
-/* ================= БУРГЕР ================= */
 const burger = document.getElementById('burger');
 const navLinks = document.getElementById('navLinks');
 burger.addEventListener('click', ()=>{
@@ -1460,7 +1487,6 @@ navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{
   burger.classList.remove('open');
 }));
 
-/* ================= СКРОЛЛ ================= */
 const nav = document.getElementById('nav');
 const progress = document.getElementById('progress');
 const heroInner = document.getElementById('heroInner');
@@ -1478,14 +1504,10 @@ function onScroll(){
   ticking = false;
 }
 window.addEventListener('scroll', ()=>{
-  if(!ticking){
-    requestAnimationFrame(onScroll);
-    ticking = true;
-  }
+  if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
 }, { passive:true });
 onScroll();
 
-/* ================= ПАРАЛЛАКС ================= */
 const hero = document.querySelector('.hero');
 const heroGlow = document.querySelector('.hero-glow');
 if(hero && heroGlow){
@@ -1495,15 +1517,11 @@ if(hero && heroGlow){
     const y = (e.clientY - r.top) / r.height - 0.5;
     heroGlow.style.transform = `translate(${x * 50}px, ${y * 50}px)`;
   });
-  hero.addEventListener('mouseleave', ()=>{
-    heroGlow.style.transform = 'translate(0,0)';
-  });
+  hero.addEventListener('mouseleave', ()=> heroGlow.style.transform = 'translate(0,0)');
 }
 
-/* ================= ГОД ================= */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ================= ЛОГИКА КНОПКИ БАГА ================= */
 document.getElementById('reportBugBtn').addEventListener('click', (e) => {
   e.preventDefault();
   modalBox.innerHTML = `
@@ -1512,7 +1530,7 @@ document.getElementById('reportBugBtn').addEventListener('click', (e) => {
       <h3>Нашли ошибку?</h3>
       <p>Опишите, что именно не работает или выглядит странно. Я постараюсь всё исправить как можно скорее.</p>
       <form id="bugForm">
-        <textarea id="bugText" class="bug-textarea" placeholder="Что случилось? (например: кнопка не нажимается, текст съехал и т.д.)" required></textarea>
+        <textarea id="bugText" class="bug-textarea" placeholder="Что случилось?" required></textarea>
         <input type="text" id="bugContact" class="bug-input" placeholder="Контакт для связи (необязательно)">
         <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить</button>
       </form>
@@ -1534,10 +1552,7 @@ document.getElementById('reportBugBtn').addEventListener('click', (e) => {
     formData.append('Контакт для связи', document.getElementById('bugContact').value || 'Не указан');
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.success) {
         modalBox.innerHTML = `
@@ -1548,9 +1563,7 @@ document.getElementById('reportBugBtn').addEventListener('click', (e) => {
             <button class="btn btn-primary" onclick="document.getElementById('modalClose').click()" style="margin-top: 20px;">Закрыть</button>
           </div>
         `;
-      } else {
-        throw new Error('Ошибка отправки');
-      }
+      } else throw new Error('Ошибка отправки');
     } catch (err) {
       alert('Не удалось отправить сообщение. Попробуйте позже.');
       btn.textContent = 'Отправить';
@@ -1564,7 +1577,7 @@ document.getElementById('reportBugBtn').addEventListener('click', (e) => {
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-  import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signInAnonymously, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA3g9YS3keWJA49ZyIUyfFBhuH80NRLftE",
@@ -1590,7 +1603,14 @@ document.getElementById('reportBugBtn').addEventListener('click', (e) => {
     if (user && !user.isAnonymous) {
       currentUser = user;
       currentUserId = user.uid;
-      authArea.innerHTML = `<span class="auth-status">Вы вошли: ${user.displayName || 'Гость'}</span>`;
+      // ОБНОВЛЕНО: Новый вид плашки с кнопкой Выйти
+      authArea.innerHTML = `
+        <div class="auth-status">
+          <span>Вы вошли: <span class="user-name">${user.displayName || 'Гость'}</span></span>
+          <button id="logoutBtn" class="logout-btn">Выйти</button>
+        </div>
+      `;
+      document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
     } else {
       if (!user) signInAnonymously(auth).catch(console.error);
       currentUser = user;
