@@ -971,20 +971,18 @@
     .burger{display:block}
     .services-grid{grid-template-columns:1fr}
     
-    /* ОБНОВЛЕНО: Обо мне на мобильных */
+    /* ОБНОВЛЕНО: Обо мне на мобильных (убрана подсветка текста) */
     .about-grid{grid-template-columns:1fr;gap:20px}
     .about-visual {
-      aspect-ratio: auto;
-      min-height: auto;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      cursor: default;
-      padding: 0;
-      overflow: visible;
-      opacity: 1;
-      transform: none;
-      /* Отключаем выделение текста и синюю подсветку при тапе */
+      aspect-ratio: auto; min-height: auto; background: transparent; border: none;
+      box-shadow: none; cursor: default; padding: 0; overflow: visible; opacity: 1; transform: none;
+    }
+    .about-visual::before { display: none; }
+    .about-ya { display: none; }
+    .about-hint { display: none; }
+    
+    /* Отключаем выделение и подсветку для всех элементов внутри about */
+    .about-visual, .about-reveal, .about-reveal p {
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -992,20 +990,11 @@
       -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
     }
-    .about-visual::before { display: none; }
-    .about-ya { display: none; }
-    .about-hint { display: none; }
+    
     .about-reveal {
-      position: relative;
-      opacity: 1;
-      transform: none;
-      padding: 0;
-      overflow: visible;
+      position: relative; opacity: 1; transform: none; padding: 0; overflow: visible;
     }
-    .about-reveal p {
-      font-size: 1rem;
-      color: var(--muted);
-    }
+    .about-reveal p { font-size: 1rem; color: var(--muted); }
     
     /* ОБНОВЛЕНО: Карточки контактов на мобильных (открыты сразу) */
     .contact-card {
@@ -1019,25 +1008,14 @@
     }
     .contact-card::before { opacity: 1; }
     .cc-title {
-      position: relative;
-      top: auto;
-      left: auto;
-      right: auto;
-      transform: none;
+      position: relative; top: auto; left: auto; right: auto; transform: none;
       margin-bottom: 12px;
       background: linear-gradient(120deg,var(--accent),var(--accent-2));
-      -webkit-background-clip: text;
-      color: transparent;
+      -webkit-background-clip: text; color: transparent;
     }
     .cc-info {
-      position: relative;
-      left: auto;
-      right: auto;
-      bottom: auto;
-      opacity: 1;
-      transform: none;
-      pointer-events: auto;
-      margin-top: auto;
+      position: relative; left: auto; right: auto; bottom: auto;
+      opacity: 1; transform: none; pointer-events: auto; margin-top: auto;
     }
 
     section{padding:80px 0}
@@ -1088,7 +1066,7 @@
     <a href="#" class="logo">DouleRs<span>.com</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#services">Услуги</a></li>
-      <li><a href="portfolio.html">Портфолио</a></li> <!-- ССЫЛКА НА НОВУЮ СТРАНИЦУ -->
+      <li><a href="portfolio.html">Портфолио</a></li>
       <li><a href="#reviews">Отзывы</a></li>
       <li><a href="#about">Обо мне</a></li>
       <li><a href="#contact">Контакты</a></li>
@@ -1117,7 +1095,7 @@
   <a href="#services" class="scroll-hint" aria-label="Вниз"><span></span></a>
 </header>
 
-<!-- WORKS (ТЕПЕРЬ ЭТО ПРОСТО БОЛЬШАЯ КНОПКА) -->
+<!-- WORKS (БОЛЬШАЯ КНОПКА) -->
 <section id="works" class="portfolio-cta-section">
   <div class="wrap">
     <div class="sec-head rv" style="margin-bottom: 20px;">
@@ -1129,9 +1107,7 @@
       </p>
     </div>
     
-    <!-- ОГРОМНАЯ КНОПКА -->
     <a href="portfolio.html" class="huge-cta-btn rv" style="--d:.1s">Посмотреть мои работы →</a>
-
   </div>
 </section>
 
@@ -1344,6 +1320,19 @@ function hideLoader(){
 }
 window.addEventListener('load', ()=> setTimeout(hideLoader, 450));
 setTimeout(hideLoader, 1800);
+
+/* ================= МОДАЛКА (ВОЗВРАЩЕНО ЗАКРЫТИЕ) ================= */
+const modal = document.getElementById('modal');
+const modalBox = document.getElementById('modalBox');
+const modalClose = document.getElementById('modalClose');
+
+function closeModal(){
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeModal(); });
 
 /* ================= КНОПКА "В ЧЕСТЬ ЧЕГО СКИДКИ?" ================= */
 const discountInfoBtn = document.getElementById('discountInfoBtn');
