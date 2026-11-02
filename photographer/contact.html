@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты — LUMEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">LUMEN</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="portfolio.html">Портфолио</a></li>
+      <li><a href="about.html">Обо мне</a></li>
+      <li><a href="contact.html" class="active">Контакты</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span>Контакты</span>
+      <span class="dot"></span>
+      <span>Запись открыта</span>
+    </div>
+    <h1>Давайте<br>поговорим</h1>
+    <p>Расскажите про съёмку: кто, когда и что хочется. Я отвечу в течение дня и предложу пару дат.</p>
+  </div>
+</header>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="contact-grid">
+      <a href="https://t.me/" target="_blank" rel="noopener" class="contact-item rv">
+        <span class="lbl">Telegram</span>
+        <span class="val">@lumen.photo</span>
+        <span class="desc">Быстрее всего — сюда. Обычно отвечаю в течение часа.</span>
+        <span class="arrow">Написать в Telegram →</span>
+      </a>
+      <a href="mailto:hello@lumen.photo" class="contact-item rv" style="--d:.05s">
+        <span class="lbl">Email</span>
+        <span class="val">hello@lumen.photo</span>
+        <span class="desc">Для подробных запросов и коммерческих предложений.</span>
+        <span class="arrow">Написать на почту →</span>
+      </a>
+      <a href="tel:+70000000000" class="contact-item rv" style="--d:.1s">
+        <span class="lbl">Телефон</span>
+        <span class="val">+7 (000) 000-00-00</span>
+        <span class="desc">Только для срочных вопросов и в день съёмки.</span>
+        <span class="arrow">Позвонить →</span>
+      </a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener" class="contact-item rv" style="--d:.15s">
+        <span class="lbl">Instagram</span>
+        <span class="val">@lumen.photo</span>
+        <span class="desc">Свежие кадры, закулисье и анонсы свободных дат.</span>
+        <span class="arrow">Смотреть →</span>
+      </a>
+    </div>
+
+    <div class="contact-info-block">
+      <div class="contact-info-col rv">
+        <h3>Студия</h3>
+        <p>Съёмки проходят в студии на Тверской или на локации по вашему выбору — в парке, дома, на природе. О студии расскажу отдельно, если нужно.</p>
+        <ul>
+          <li><span>Адрес</span><em>Москва, ул. Тверская, 8</em></li>
+          <li><span>Метро</span><em>5 минут пешком</em></li>
+          <li><span>Часы</span><em>10:00 — 20:00 · ежедневно</em></li>
+        </ul>
+      </div>
+      <div class="contact-info-col rv" style="--d:.1s">
+        <h3>Запись</h3>
+        <p>Обычно запись открыта на 2–3 недели вперёд. На свадьбы — за 2–3 месяца. Если нужна срочная съёмка — напишите, попробуем найти окно.</p>
+        <ul>
+          <li><span>Портрет</span><em>от 8 000 ₽</em></li>
+          <li><span>Свадьба</span><em>от 60 000 ₽</em></li>
+          <li><span>Семья</span><em>от 12 000 ₽</em></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">LUMEN</div>
+      <p>Студия фотографии в центре Москвы. Портреты, свадьбы, семейные истории. С 2018 года.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Разделы</h4>
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="portfolio.html">Портфолио</a></li>
+        <li><a href="about.html">Обо мне</a></li>
+        <li><a href="contact.html">Контакты</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Связь</h4>
+      <ul>
+        <li><a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
+        <li><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">VK</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 · LUMEN</span>
+    <span>Москва · ул. Тверская, 8</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

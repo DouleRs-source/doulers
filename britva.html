@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>БРИТВА — барбершоп в центре Москвы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0e10;
+    --bg-2:#17171a;
+    --bg-3:#1f1f24;
+    --text:#f0ece4;
+    --muted:#8a8a92;
+    --accent:#d4a259;
+    --accent-2:#e8b878;
+    --line:#2a2a30;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);color:var(--text);
+    line-height:1.6;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+
+  h1,h2,h3{font-family:'Oswald',sans-serif;font-weight:600;line-height:1;letter-spacing:-.01em;text-transform:uppercase}
+  h1{font-size:clamp(3rem,8vw,6.5rem);line-height:.92}
+  h2{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1}
+  h3{font-size:1.35rem;letter-spacing:.01em}
+
+  .eyebrow{
+    display:inline-block;font-size:.72rem;letter-spacing:.28em;
+    text-transform:uppercase;font-weight:700;color:var(--accent);
+    margin-bottom:20px;font-family:'Inter',sans-serif;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:18px 34px;
+    font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;
+    letter-spacing:.15em;text-transform:uppercase;
+    transition:.3s cubic-bezier(.2,.8,.2,1);cursor:pointer;
+    border:none;
+  }
+  .btn-accent{background:var(--accent);color:#0e0e10}
+  .btn-accent:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:0 14px 32px rgba(212,162,89,.25)}
+  .btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--text)}
+  .btn-outline:hover{background:var(--text);color:var(--bg)}
+
+  /* ---------- NAV ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:26px 0;transition:.4s}
+  .nav.scrolled{padding:16px 0;background:rgba(14,14,16,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Oswald',sans-serif;font-size:1.55rem;font-weight:700;letter-spacing:.15em;color:var(--text);display:flex;align-items:center;gap:10px}
+  .logo span{color:var(--accent)}
+  .logo svg{width:24px;height:24px;color:var(--accent)}
+  .nav-links{display:flex;gap:38px;list-style:none}
+  .nav-links a{font-size:.85rem;font-weight:500;letter-spacing:.06em;color:var(--text);opacity:.7;transition:.25s;position:relative}
+  .nav-links a:hover{opacity:1;color:var(--accent)}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:2px;background:var(--accent);transition:.3s}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{
+    padding:12px 24px;background:var(--accent);color:#0e0e10;
+    font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;transition:.3s;
+  }
+  .nav-cta:hover{background:var(--accent-2)}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{display:block;width:26px;height:2px;background:var(--text);margin:6px 0;transition:.3s}
+
+  /* ---------- PHOTO PLACEHOLDERS (dark) ---------- */
+  .photo-slot{
+    position:relative;width:100%;height:100%;
+    background:linear-gradient(135deg,#1a1a1e 0%,#22222a 100%);
+    border:2px dashed rgba(212,162,89,.4);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;color:var(--text);padding:20px;
+    transition:.4s;
+  }
+  .photo-slot::before{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(circle,rgba(212,162,89,.08) 1px,transparent 1px);
+    background-size:22px 22px;pointer-events:none;
+  }
+  .photo-slot-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;max-width:100%}
+  .photo-slot-icon{
+    width:54px;height:54px;border-radius:50%;
+    background:rgba(212,162,89,.1);color:var(--accent);
+    border:1px solid rgba(212,162,89,.3);
+    display:grid;place-items:center;margin-bottom:6px;flex-shrink:0;
+  }
+  .photo-slot-icon svg{width:24px;height:24px}
+  .photo-slot strong{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:1rem;
+    letter-spacing:.05em;line-height:1.25;color:var(--text);
+    text-transform:uppercase;word-break:break-word;
+  }
+  .photo-slot span{font-size:.82rem;color:var(--muted);font-style:italic;line-height:1.45;max-width:260px;word-break:break-word}
+  .photo-slot-lg .photo-slot-icon{width:66px;height:66px}
+  .photo-slot-lg .photo-slot-icon svg{width:28px;height:28px}
+  .photo-slot-lg strong{font-size:1.25rem}
+  .photo-slot-lg span{font-size:.9rem;max-width:320px}
+  .photo-slot-sm{padding:8px}
+  .photo-slot-sm .photo-slot-icon{width:30px;height:30px;margin:0}
+  .photo-slot-sm .photo-slot-icon svg{width:13px;height:13px}
+  .photo-slot-sm strong{font-size:.6rem;line-height:1.2}
+  .photo-slot-sm span{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:160px 0 100px;position:relative;overflow:hidden}
+  .hero::before{
+    content:'';position:absolute;top:10%;right:-10%;
+    width:700px;height:700px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,162,89,.18),transparent 65%);
+    filter:blur(90px);pointer-events:none;
+  }
+  .hero-inner{
+    max-width:1240px;margin:0 auto;padding:0 32px;
+    display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center;
+    position:relative;z-index:1;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 16px;border:1px solid var(--line);
+    font-size:.72rem;font-weight:600;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:30px;
+  }
+  .hero-badge::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 10px var(--accent);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .hero h1{margin-bottom:30px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p{font-size:1.1rem;color:var(--muted);max-width:480px;margin-bottom:40px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px}
+  .hero-stats{display:flex;gap:48px;flex-wrap:wrap;padding-top:32px;border-top:1px solid var(--line)}
+  .hero-stats div{display:flex;flex-direction:column;gap:4px}
+  .hero-stats strong{font-family:'Oswald',sans-serif;font-size:2rem;line-height:1;color:var(--text);font-weight:600}
+  .hero-stats strong em{font-style:normal;color:var(--accent)}
+  .hero-stats span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:600}
+  .hero-media{position:relative;aspect-ratio:4/5;max-width:540px;margin-left:auto}
+
+  /* ---------- ABOUT ---------- */
+  .about{padding:120px 0;background:var(--bg-2);position:relative}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .about-media{position:relative;aspect-ratio:5/6;max-width:560px}
+  .about-photo-accent{
+    position:absolute;bottom:-40px;right:-40px;
+    width:220px;height:220px;
+    border:8px solid var(--bg-2);
+    z-index:2;
+  }
+  .about-copy .eyebrow{color:var(--accent)}
+  .about-copy h2{margin-bottom:28px}
+  .about-copy h2 em{font-style:normal;color:var(--accent)}
+  .about-copy p{color:var(--muted);margin-bottom:20px;font-size:1.02rem}
+  .about-quote{
+    margin-top:28px;padding:24px 28px;
+    border-left:3px solid var(--accent);
+    background:rgba(212,162,89,.05);
+    font-style:italic;color:var(--text);font-size:.95rem;
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services{padding:120px 0;position:relative}
+  .services-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+  .services-head p{color:var(--muted);font-size:1.02rem;max-width:420px}
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .service{
+    padding:44px 40px;
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg);transition:.4s;position:relative;overflow:hidden;
+  }
+  .service::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--accent);transform:scaleY(0);transform-origin:top;transition:.4s;
+  }
+  .service:hover{background:var(--bg-2)}
+  .service:hover::before{transform:scaleY(1)}
+  .service-num{
+    font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;
+    color:var(--accent);letter-spacing:.2em;margin-bottom:20px;
+  }
+  .service h3{margin-bottom:12px;color:var(--text)}
+  .service p{color:var(--muted);font-size:.92rem;margin-bottom:24px}
+  .service-price{
+    font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:600;
+    color:var(--text);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  }
+  .service-price em{
+    font-style:normal;font-size:.72rem;letter-spacing:.15em;
+    color:var(--muted);text-transform:uppercase;
+    font-family:'Inter',sans-serif;font-weight:600;
+  }
+
+  /* ---------- MASTERS ---------- */
+  .masters{padding:120px 0;background:var(--bg-2)}
+  .masters-head{text-align:center;margin-bottom:70px}
+  .masters-head p{color:var(--muted);font-size:1.02rem;max-width:520px;margin:16px auto 0}
+  .masters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .master{background:var(--bg);border:1px solid var(--line);transition:.4s;overflow:hidden}
+  .master:hover{transform:translateY(-6px);border-color:rgba(212,162,89,.4)}
+  .master-photo{aspect-ratio:4/5;position:relative}
+  .master-photo .photo-slot{border:none;border-bottom:2px dashed rgba(212,162,89,.3)}
+  .master-body{padding:28px 26px}
+  .master h3{margin-bottom:6px;color:var(--text)}
+  .master-role{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:16px;font-family:'Inter',sans-serif}
+  .master p{color:var(--muted);font-size:.9rem;line-height:1.6}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{padding:120px 0}
+  .gallery-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:60px}
+  .gallery-head p{color:var(--muted);font-size:1.02rem;max-width:420px}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px}
+  .gallery-item{position:relative;overflow:hidden;background:var(--bg-3)}
+  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+  .gallery-item:nth-child(4){grid-column:span 2}
+  .gallery-item:hover .photo-slot{
+    background:linear-gradient(135deg,#24242c 0%,#2c2c36 100%);
+    border-color:rgba(212,162,89,.8);
+  }
+
+  /* ---------- BOOKING ---------- */
+  .booking{padding:120px 0;background:var(--bg-2);position:relative;overflow:hidden}
+  .booking::before{
+    content:'';position:absolute;bottom:-20%;left:-10%;
+    width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,162,89,.1),transparent 70%);
+    filter:blur(80px);pointer-events:none;
+  }
+  .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;position:relative;z-index:1}
+  .booking-copy .eyebrow{color:var(--accent)}
+  .booking-copy h2{margin-bottom:26px}
+  .booking-copy h2 em{font-style:normal;color:var(--accent)}
+  .booking-copy p{color:var(--muted);margin-bottom:36px;font-size:1.02rem;max-width:440px}
+  .booking-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+  .booking-info{display:flex;flex-direction:column;gap:20px;padding-top:36px;border-top:1px solid var(--line)}
+  .booking-row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+  .booking-row span{color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.15em;font-weight:600}
+  .booking-row em{font-style:normal;font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:600;color:var(--text);letter-spacing:.02em}
+  .booking-media{aspect-ratio:4/5;max-width:520px;margin-left:auto}
+  .booking-media .photo-slot{box-shadow:0 40px 80px rgba(0,0,0,.5)}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#0a0a0c;border-top:1px solid var(--line);padding:70px 0 30px}
+  .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:50px;margin-bottom:56px}
+  .footer-brand p{color:var(--muted);font-size:.92rem;max-width:300px;margin-top:16px;line-height:1.6}
+  .footer-col h4{font-family:'Oswald',sans-serif;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin-bottom:20px;font-weight:600}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .footer-col a,.footer-col li{color:var(--muted);font-size:.9rem;transition:.2s}
+  .footer-col a:hover{color:var(--accent)}
+  .footer-bottom{
+    padding-top:36px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    gap:20px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);
+    letter-spacing:.03em;
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s);will-change:opacity,transform}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:960px){
+    .nav-links,.nav-cta{display:none}
+    .burger{display:block}
+    .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg-2);padding:24px 32px;gap:20px;border-bottom:1px solid var(--line)}
+    .hero{padding:130px 0 80px}
+    .hero-inner{grid-template-columns:1fr;gap:50px;text-align:left}
+    .hero-media{max-width:480px;margin:0 auto;aspect-ratio:1}
+    .hero-stats{gap:36px}
+    .about-grid,.booking-grid{grid-template-columns:1fr;gap:60px}
+    .about-photo-accent{width:170px;height:170px;right:16px;bottom:16px;border-width:6px}
+    .services-head{grid-template-columns:1fr;gap:24px}
+    .services-grid{grid-template-columns:1fr}
+    .masters-grid{grid-template-columns:1fr;gap:20px}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
+    .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+    .gallery-item:nth-child(4){grid-column:span 1}
+    .booking-media{order:-1;max-width:400px;margin:0 auto;aspect-ratio:1}
+    .footer-inner{grid-template-columns:1fr 1fr;gap:40px}
+    .footer-brand{grid-column:span 2}
+    .wrap,.hero-inner,.nav-inner{padding-left:20px;padding-right:20px}
+    section{padding:80px 0}
+  }
+  @media(max-width:520px){
+    .gallery-grid{grid-template-columns:1fr;grid-auto-rows:200px}
+    .gallery-item:nth-child(1){grid-column:span 1}
+    .gallery-item:nth-child(4){grid-column:span 1}
+    .footer-inner{grid-template-columns:1fr}
+    .footer-brand{grid-column:span 1}
+    .hero-stats{gap:24px}
+    .service{padding:32px 26px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 20L16 8"/>
+        <path d="M14 4l6 6-2 2-6-6z"/>
+        <path d="M8 16l-2 2-2-2 2-2"/>
+      </svg>
+      <span>БРИТВА</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#masters">Мастера</a></li>
+      <li><a href="#gallery">Работы</a></li>
+      <li><a href="#booking">Запись</a></li>
+    </ul>
+    <a href="#booking" class="nav-cta">Записаться</a>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="hero-badge">Барбершоп · Москва · с 2016</span>
+      <h1>Стрижка.<br>Бритьё.<br><em>Характер.</em></h1>
+      <p>Барбершоп для тех, кто ценит своё время. Классические техники, уважение к деталям и никакой суеты.</p>
+      <div class="hero-cta">
+        <a href="#booking" class="btn btn-accent">Записаться →</a>
+        <a href="#services" class="btn btn-outline">Услуги и цены</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>10<em>+</em></strong><span>лет на районе</span></div>
+        <div><strong>4</strong><span>мастера</span></div>
+        <div><strong>98<em>%</em></strong><span>возвращаются</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="photo-slot photo-slot-lg">
+        <div class="photo-slot-inner">
+          <div class="photo-slot-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="9" cy="9" r="2"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <strong>Тут будет ваше фото</strong>
+          <span>Например: мастер за работой — стрижка машинкой, ч/б кадр</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-media reveal">
+      <div class="photo-slot">
+        <div class="photo-slot-inner">
+          <div class="photo-slot-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="9" cy="9" r="2"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <strong>Тут будет ваше фото</strong>
+          <span>Например: общий вид зала — кресла, зеркала, тёплый свет</span>
+        </div>
+      </div>
+      <div class="about-photo-accent">
+        <div class="photo-slot photo-slot-sm">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: опасная бритва и помазок крупным планом</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-copy reveal" style="--d:.1s">
+      <span class="eyebrow">О нас</span>
+      <h2>Не парикмахерская.<br><em>Барбершоп.</em></h2>
+      <p>Мы открылись в 2016-м с простой идеей — делать мужские стрижки так, чтобы их не хотелось переделывать. Без лишнего, без «а может, вот так?».</p>
+      <p>Классические техники, современные инструменты, честная цена. Приходишь — садишься — уходишь другим человеком.</p>
+      <div class="about-quote">«Хорошая стрижка — это когда через две недели она всё ещё выглядит как стрижка, а не как отрастающее недоразумение».</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="services-head reveal">
+      <div>
+        <span class="eyebrow">Услуги</span>
+        <h2>Что делаем</h2>
+      </div>
+      <p>Каждая услуга — от 45 минут. Никакой спешки, никаких очередей. Только ты и мастер.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service reveal">
+        <div class="service-num">01 — СТРИЖКА</div>
+        <h3>Мужская стрижка</h3>
+        <p>Классика, фейд, кроп или что-то своё. С мытьём головы и укладкой.</p>
+        <div class="service-price">2 500 ₽ <em>· 60 мин</em></div>
+      </div>
+      <div class="service reveal" style="--d:.05s">
+        <div class="service-num">02 — БОРОДА</div>
+        <h3>Стрижка бороды</h3>
+        <p>Форма, контур, триммер и опасная бритва. С горячим полотенцем.</p>
+        <div class="service-price">1 500 ₽ <em>· 40 мин</em></div>
+      </div>
+      <div class="service reveal" style="--d:.1s">
+        <div class="service-num">03 — БРИТЬЁ</div>
+        <h3>Королевское бритьё</h3>
+        <p>Опасная бритва, два прохода, уход после. Ритуал, а не процедура.</p>
+        <div class="service-price">2 000 ₽ <em>· 45 мин</em></div>
+      </div>
+      <div class="service reveal" style="--d:.15s">
+        <div class="service-num">04 — КОМПЛЕКТ</div>
+        <h3>Стрижка + борода</h3>
+        <p>Полный образ за один визит. Самый популярный вариант у нас.</p>
+        <div class="service-price">3 500 ₽ <em>· 90 мин</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MASTERS -->
+<section class="masters" id="masters">
+  <div class="wrap">
+    <div class="masters-head reveal">
+      <span class="eyebrow">Мастера</span>
+      <h2>Кто держит бритву</h2>
+      <p>Три человека, у каждого — своя техника и свой характер. Выбирай по вайбу.</p>
+    </div>
+    <div class="masters-grid">
+      <div class="master reveal">
+        <div class="master-photo">
+          <div class="photo-slot">
+            <div class="photo-slot-inner">
+              <div class="photo-slot-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="M21 15l-5-5L5 21"/>
+                </svg>
+              </div>
+              <strong>Тут будет фото мастера</strong>
+              <span>Например: портрет в пол-оборота, тёмный фон</span>
+            </div>
+          </div>
+        </div>
+        <div class="master-body">
+          <h3>Артём</h3>
+          <div class="master-role">Основатель · 12 лет</div>
+          <p>Классические стрижки и королевское бритьё. Учит всех остальных правильному хвату.</p>
+        </div>
+      </div>
+      <div class="master reveal" style="--d:.1s">
+        <div class="master-photo">
+          <div class="photo-slot">
+            <div class="photo-slot-inner">
+              <div class="photo-slot-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="M21 15l-5-5L5 21"/>
+                </svg>
+              </div>
+              <strong>Тут будет фото мастера</strong>
+              <span>Например: мастер с машинкой в руках, улыбка</span>
+            </div>
+          </div>
+        </div>
+        <div class="master-body">
+          <h3>Максим</h3>
+          <div class="master-role">Топ-барбер · 7 лет</div>
+          <p>Фейды и текстурные стрижки. Любит сложные переходы и требовательных клиентов.</p>
+        </div>
+      </div>
+      <div class="master reveal" style="--d:.2s">
+        <div class="master-photo">
+          <div class="photo-slot">
+            <div class="photo-slot-inner">
+              <div class="photo-slot-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="M21 15l-5-5L5 21"/>
+                </svg>
+              </div>
+              <strong>Тут будет фото мастера</strong>
+              <span>Например: мастер за креслом, руки с ножницами</span>
+            </div>
+          </div>
+        </div>
+        <div class="master-body">
+          <h3>Игорь</h3>
+          <div class="master-role">Барбер · 4 года</div>
+          <p>Бороды и уход. Может полчаса объяснять, почему твоя борода растёт именно так.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="gallery-head reveal">
+      <div>
+        <span class="eyebrow">Работы</span>
+        <h2>Что получается</h2>
+      </div>
+      <p>Несколько стрижек и кадров из зала. Больше — в нашем Telegram.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <div class="photo-slot photo-slot-lg">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: крупный кадр — свежий фейд, вид сзади</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="--d:.05s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: ухоженная борода, ч/б</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="--d:.1s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: инструменты на кожаном подносе</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="--d:.15s">
+        <div class="photo-slot photo-slot-lg">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: довольный клиент в кресле — до/после</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="--d:.2s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: деталь — полотенце и бритва</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="wrap booking-grid">
+    <div class="booking-copy reveal">
+      <span class="eyebrow">Запись</span>
+      <h2>Заходи.<br>Или <em>запишись.</em></h2>
+      <p>Работаем по записи — так у нас нет очередей и ты приходишь ровно к своему времени. Позвони, напиши в Telegram или зайди с улицы, если есть окно.</p>
+      <div class="booking-actions">
+        <a href="tel:+70000000000" class="btn btn-accent">Позвонить</a>
+        <a href="https://t.me/" target="_blank" rel="noopener" class="btn btn-outline">Написать в Telegram</a>
+      </div>
+      <div class="booking-info">
+        <div class="booking-row"><span>Часы работы</span><em>10:00 — 22:00 · ежедневно</em></div>
+        <div class="booking-row"><span>Адрес</span><em>ул. Садовая, 18 · 1 этаж</em></div>
+        <div class="booking-row"><span>Метро</span><em>5 минут пешком</em></div>
+      </div>
+    </div>
+    <div class="booking-media reveal" style="--d:.1s">
+      <div class="photo-slot photo-slot-lg">
+        <div class="photo-slot-inner">
+          <div class="photo-slot-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="9" cy="9" r="2"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <strong>Тут будет ваше фото</strong>
+          <span>Например: вывеска «БРИТВА» над входом, вечерний свет</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:1.4rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 20L16 8"/>
+            <path d="M14 4l6 6-2 2-6-6z"/>
+            <path d="M8 16l-2 2-2-2 2-2"/>
+          </svg>
+          <span>БРИТВА</span>
+        </div>
+        <p>Барбершоп для тех, кто ценит своё время. Работаем с 2016 года.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#masters">Мастера</a></li>
+          <li><a href="#gallery">Работы</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Связь</h4>
+        <ul>
+          <li><a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
+          <li><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">VK</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Барбершоп «БРИТВА». Все права защищены.</span>
+      <span>Москва · ул. Садовая, 18</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* NAV — фон при скролле */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive:true });
+
+  /* Бургер */
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  /* Плавное появление */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold:0.15, rootMargin:'0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

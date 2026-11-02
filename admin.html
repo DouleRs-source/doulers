@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Админка — DouleRs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c; --bg-2: #121216; --card: #16161b; --text: #ececf1;
+    --muted: #8b8b96; --accent: #7c5cff; --accent-2: #4dd4ff;
+    --green: #4ade80; --red: #ff2d55; --border: #23232b; --yellow: #ffb400;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+  body { background: var(--bg); color: var(--text); padding: 20px; }
+  
+  #loginScreen { max-width: 400px; margin: 10vh auto; background: var(--card); padding: 40px 30px; border-radius: 18px; border: 1px solid var(--border); }
+  h1 { font-size: 1.5rem; margin-bottom: 20px; text-align: center; }
+  .input { width: 100%; padding: 12px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; color: white; margin-bottom: 15px; outline: none; }
+  .input:focus { border-color: var(--accent); }
+  .btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: var(--accent); color: white; transition: .2s; }
+  .btn:hover { background: #6a4ae0; }
+  .error { color: var(--red); font-size: .85rem; text-align: center; margin-bottom: 10px; display: none; }
+
+  #adminScreen { display: none; max-width: 900px; margin: 0 auto; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .logout-btn { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+  
+  /* Вкладки */
+  .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tab { padding: 10px 20px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); cursor: pointer; transition: .2s; font-weight: 500;}
+  .tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+  .review-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .review-content { flex: 1; }
+  .review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .review-name { font-weight: bold; font-size: 1.1rem; }
+  .review-stars { color: var(--yellow); font-size: 1.1rem; }
+  .review-date { color: var(--muted); font-size: 0.8rem; margin-left: auto; }
+  .review-text { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; }
+  .review-contact { font-size: 0.85rem; color: var(--accent-2); background: rgba(77,212,255,0.1); padding: 4px 8px; border-radius: 6px; display: inline-block; }
+  
+  .actions { display: flex; flex-direction: column; gap: 8px; }
+  .btn-approve { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid var(--green); padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+  .btn-reject { background: rgba(255,140,66,0.1); color: #ff8c42; border: 1px solid #ff8c42; padding: 8px 16px; border-radius: 6px; cursor: pointer;}
+  .btn-delete { background: rgba(255,45,85,0.1); color: var(--red); border: 1px solid var(--red); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; opacity: 0.8;}
+  
+  .btn-approve:hover { background: var(--green); color: #000; }
+  .btn-reject:hover { background: #ff8c42; color: #000; }
+  .btn-delete:hover { background: var(--red); color: #fff; opacity: 1; }
+
+  .empty-state { text-align: center; color: var(--muted); padding: 50px 0; }
+</style>
+</head>
+<body>
+
+  <div id="loginScreen">
+    <h1>Вход в админку</h1>
+    <div class="error" id="loginError">Неверный логин или пароль</div>
+    <input type="email" id="emailInput" class="input" placeholder="Email">
+    <input type="password" id="passwordInput" class="input" placeholder="Пароль">
+    <button class="btn" id="loginBtn">Войти</button>
+  </div>
+
+  <div id="adminScreen">
+    <div class="header">
+      <h1>Управление отзывами</h1>
+      <button class="logout-btn" id="logoutBtn">Выйти</button>
+    </div>
+    
+    <div class="tabs">
+      <button class="tab active" data-status="pending">На проверке</button>
+      <button class="tab" data-status="approved">Опубликованные</button>
+      <button class="tab" data-status="rejected">Отклоненные</button>
+    </div>
+
+    <div id="reviewsList"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3g9YS3keWJA49ZyIUyfFBhuH80NRLftE",
+      authDomain: "doulers-fe372.firebaseapp.com",
+      projectId: "doulers-fe372",
+      storageBucket: "doulers-fe372.firebasestorage.app",
+      messagingSenderId: "137471473397",
+      appId: "1:137471473397:web:4b4acfcbffd1babb5ef7bc"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const loginScreen = document.getElementById('loginScreen');
+    const adminScreen = document.getElementById('adminScreen');
+    const reviewsList = document.getElementById('reviewsList');
+    const tabs = document.querySelectorAll('.tab');
+    let currentTab = 'pending';
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const email = document.getElementById('emailInput').value;
+      const pass = document.getElementById('passwordInput').value;
+      signInWithEmailAndPassword(auth, email, pass).catch((error) => {
+        document.getElementById('loginError').style.display = 'block';
+      });
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginScreen.style.display = 'none';
+        adminScreen.style.display = 'block';
+        loadReviews(currentTab);
+      } else {
+        loginScreen.style.display = 'block';
+        adminScreen.style.display = 'none';
+      }
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        tabs.forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        currentTab = e.target.dataset.status;
+        loadReviews(currentTab);
+      });
+    });
+
+    async function loadReviews(status) {
+      reviewsList.innerHTML = '<div class="empty-state">Загрузка...</div>';
+      try {
+        const q = query(collection(db, "reviews"), where("status", "==", status));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+          reviewsList.innerHTML = `<div class="empty-state">Здесь пока пусто.</div>`;
+          return;
+        }
+
+        reviewsList.innerHTML = '';
+        
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const id = docSnap.id;
+          let dateStr = data.createdAt ? data.createdAt.toDate().toLocaleString('ru-RU') : "Только что";
+
+          const card = document.createElement('div');
+          card.className = 'review-card';
+          card.innerHTML = `
+            <div class="review-content">
+              <div class="review-header">
+                <div class="review-name">${data.name}</div>
+                <div class="review-stars">${'★'.repeat(data.rating)}${'☆'.repeat(5 - data.rating)}</div>
+                <div class="review-date">${dateStr}</div>
+              </div>
+              <div class="review-text">${data.text}</div>
+              ${data.allowContact && data.contact ? `<div class="review-contact">Контакт: ${data.contact}</div>` : ''}
+            </div>
+            <div class="actions">
+              ${status !== 'approved' ? `<button class="btn-approve" data-id="${id}">Одобрить</button>` : ''}
+              ${status !== 'rejected' ? `<button class="btn-reject" data-id="${id}">Отклонить</button>` : ''}
+              <button class="btn-delete" data-id="${id}">Удалить</button>
+            </div>
+          `;
+          reviewsList.appendChild(card);
+        });
+
+        // Одобрить
+        document.querySelectorAll('.btn-approve').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const id = e.target.dataset.id;
+            e.target.textContent = '...';
+            await updateDoc(doc(db, "reviews", id), { status: "approved" });
+            e.target.closest('.review-card').remove();
+          });
+        });
+
+        // Отклонить
+        document.querySelectorAll('.btn-reject').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const id = e.target.dataset.id;
+            e.target.textContent = '...';
+            await updateDoc(doc(db, "reviews", id), { status: "rejected" });
+            e.target.closest('.review-card').remove();
+          });
+        });
+
+        // Удалить (полностью)
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const id = e.target.dataset.id;
+            if(confirm('Полностью удалить отзыв из базы? (Восстановить будет нельзя)')) {
+              e.target.textContent = '...';
+              await deleteDoc(doc(db, "reviews", id));
+              e.target.closest('.review-card').remove();
+            }
+          });
+        });
+
+      } catch (error) {
+        reviewsList.innerHTML = `<div class="empty-state" style="color:var(--red)">Ошибка: ${error.message}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
