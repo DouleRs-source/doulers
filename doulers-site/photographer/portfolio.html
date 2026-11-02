@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Портфолио — LUMEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">LUMEN</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="portfolio.html" class="active">Портфолио</a></li>
+      <li><a href="about.html">Обо мне</a></li>
+      <li><a href="contact.html">Контакты</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span>Портфолио</span>
+      <span class="dot"></span>
+      <span>2018 — 2026</span>
+    </div>
+    <h1>Избранные<br>истории</h1>
+    <p>Портреты, свадьбы, семьи. Часть работ — для истории, часть — для души. Все истории настоящие, кроме тех, где ещё нет фото.</p>
+  </div>
+</header>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="filters rv" id="filters">
+      <button class="filter active" data-cat="all">Все</button>
+      <button class="filter" data-cat="portrait">Портрет</button>
+      <button class="filter" data-cat="wedding">Свадьба</button>
+      <button class="filter" data-cat="family">Семья</button>
+      <button class="filter" data-cat="fashion">Fashion</button>
+    </div>
+
+    <div class="works-grid">
+      <a href="#" class="work-card rv" data-cat="portrait">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: портрет — крупный план, мягкий свет</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Портрет</span><span class="title">Тихая комната</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="wedding" style="--d:.05s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: свадьба — руки с кольцами, тёплый свет</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Свадьба</span><span class="title">Марина и Павел</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="family" style="--d:.1s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: семья в парке — родители и ребёнок, смех</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Семья</span><span class="title">Утро в парке</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="fashion" style="--d:.15s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: fashion — модель в движении, студийный свет</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Fashion</span><span class="title">Чёрное и белое</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="portrait" style="--d:.2s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: портрет у окна, естественный свет</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Портрет</span><span class="title">День рождения</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="wedding" style="--d:.25s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: свадьба — первый танец, вечерний свет</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Свадьба</span><span class="title">Первый танец</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="family" style="--d:.3s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: семейный портрет — дома, за столом</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Семья</span><span class="title">Воскресный обед</span></div>
+      </a>
+      <a href="#" class="work-card rv" data-cat="fashion" style="--d:.35s">
+        <div class="photo-slot">
+          <div class="photo-slot-inner">
+            <div class="photo-slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Тут будет ваше фото</strong>
+            <span>Например: fashion — текстура ткани, крупный кадр</span>
+          </div>
+        </div>
+        <div class="work-meta"><span class="cat">Fashion</span><span class="title">Ткань и свет</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-block">
+  <div class="wrap">
+    <h2 class="rv">Хотите так же?</h2>
+    <p class="rv" style="--d:.1s">Напишите — обсудим идею, место и дату. Обычно запись открыта на 2–3 недели вперёд.</p>
+    <a href="contact.html" class="btn btn-dark rv" style="--d:.2s">Записаться →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">LUMEN</div>
+      <p>Студия фотографии в центре Москвы. Портреты, свадьбы, семейные истории. С 2018 года.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Разделы</h4>
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="portfolio.html">Портфолио</a></li>
+        <li><a href="about.html">Обо мне</a></li>
+        <li><a href="contact.html">Контакты</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Связь</h4>
+      <ul>
+        <li><a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
+        <li><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">VK</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 · LUMEN</span>
+    <span>Москва · ул. Тверская, 8</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

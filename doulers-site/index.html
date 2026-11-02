@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DouleRs.com — Портфолио</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- ===== ТЕГИ ДЛЯ КРАСИВОГО ПРЕВЬЮ В СОЦСЕТЯХ (Open Graph) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="DouleRs.com — Создание сайтов под ключ">
+<meta property="og:description" content="Сайты-визитки, лендинги, многостраничные сайты. Скидки при запуске и бесплатные сайты за отзыв!">
+<meta property="og:image" content="preview.jpg">
+<meta property="og:url" content="https://doulers.com">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --bg-2:#121216;
+    --card:#16161b;
+    --text:#ececf1;
+    --muted:#8b8b96;
+    --accent:#7c5cff;
+    --accent-2:#4dd4ff;
+    --orange:#ff8c42;
+    --green:#4ade80;
+    --yellow:#ffb400;
+    --red:#ff2d55;
+    --border:#23232b;
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* ---------- LOADER ---------- */
+  #loader{
+    position:fixed;inset:0;z-index:9999;background:var(--bg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transition:opacity .7s ease, visibility .7s ease;
+  }
+  #loader.done{opacity:0;visibility:hidden;pointer-events:none}
+  .l-logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.5rem;font-weight:700;letter-spacing:-.02em;
+    opacity:0;animation:fadeUp .7s .1s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .l-logo span{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .l-bar{width:140px;height:2px;background:var(--border);border-radius:2px;margin-top:20px;overflow:hidden}
+  .l-bar i{
+    display:block;height:100%;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    animation:loadBar 1.2s .2s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes loadBar{to{width:100%}}
+
+  /* ---------- ПРОГРЕСС ---------- */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transition:width .1s linear;
+  }
+
+  /* ---------- ФОНОВЫЕ ПЯТНА ---------- */
+  .orbs{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+  .orbs i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.22;will-change:transform}
+  .orbs i:nth-child(1){width:460px;height:460px;background:#7c5cff;top:-140px;left:-100px;animation:orb1 22s ease-in-out infinite alternate}
+  .orbs i:nth-child(2){width:380px;height:380px;background:#4dd4ff;bottom:-120px;right:-80px;animation:orb2 26s ease-in-out infinite alternate}
+  .orbs i:nth-child(3){width:300px;height:300px;background:#ff5cb8;top:40%;left:60%;animation:orb3 30s ease-in-out infinite alternate}
+  @keyframes orb1{to{transform:translate(80px,60px) scale(1.15)}}
+  @keyframes orb2{to{transform:translate(-70px,-50px) scale(1.2)}}
+  @keyframes orb3{to{transform:translate(-50px,80px) scale(.9)}}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    backdrop-filter:blur(14px);background:rgba(10,10,12,.72);
+    border-bottom:1px solid transparent;transition:.3s;
+  }
+  nav.scrolled{border-bottom-color:var(--border);background:rgba(10,10,12,.88)}
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:70px;transition:height .35s cubic-bezier(.2,.8,.2,1);
+  }
+  nav.scrolled .nav-inner{height:58px}
+  .logo{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;
+    letter-spacing:-.02em;transition:font-size .35s cubic-bezier(.2,.8,.2,1);
+  }
+  nav.scrolled .logo{font-size:1.05rem}
+  .logo span{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent));
+    background-size:200% auto;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 6s linear infinite;
+  }
+  @keyframes shine{to{background-position:200% center}}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{font-size:.9rem;color:var(--muted);font-weight:500;transition:.2s;position:relative}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transition:.3s;border-radius:2px;
+  }
+  .nav-links a:hover::after{width:100%}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{display:block;width:24px;height:2px;background:var(--text);margin:5px 0;border-radius:2px;transition:.3s}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ---------- HERO ---------- */
+  .hero{min-height:100vh;display:flex;align-items:center;padding-top:70px;position:relative;overflow:hidden}
+  .hero-glow{
+    position:absolute;top:-25%;left:50%;margin-left:-450px;
+    width:900px;height:900px;border-radius:50%;
+    background:radial-gradient(circle,rgba(124,92,255,.25),transparent 60%);
+    filter:blur(40px);pointer-events:none;transition:transform .5s ease-out;will-change:transform;
+  }
+  .hero-inner{position:relative;z-index:1;width:100%;will-change:transform,opacity}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:26px;
+    padding:8px 16px;border:1px solid var(--border);border-radius:999px;opacity:0;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  .hero h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(2.2rem,6vw,4.8rem);
+    line-height:1.02;letter-spacing:-.03em;
+    font-weight:700;margin-bottom:24px;opacity:0;
+  }
+  .hero-h1-sub{
+    display:inline-block;
+    margin-top:14px;
+    font-size:clamp(1.15rem,2.6vw,2rem);
+    font-weight:600;
+    letter-spacing:-.02em;
+    line-height:1.2;
+    color:var(--text);
+  }
+  .grad{
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p{font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:560px;margin-bottom:40px;opacity:0}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;opacity:0}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 28px;border-radius:999px;font-weight:600;font-size:.95rem;
+    transition:.25s;cursor:pointer;border:none;font-family:inherit;
+  }
+  .btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#0a0a0c}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(124,92,255,.35)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-2)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  body.ready .hero-tag{animation:fadeUp 1s .1s cubic-bezier(.2,.8,.2,1) forwards}
+  body.ready .hero h1{animation:fadeUp 1s .25s cubic-bezier(.2,.8,.2,1) forwards}
+  body.ready .hero p{animation:fadeUp 1s .4s cubic-bezier(.2,.8,.2,1) forwards}
+  body.ready .hero-cta{animation:fadeUp 1s .55s cubic-bezier(.2,.8,.2,1) forwards}
+
+  .scroll-hint{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    width:26px;height:42px;border:1.5px solid var(--border);border-radius:14px;
+    display:flex;justify-content:center;padding-top:8px;z-index:2;
+    transition:border-color .3s;opacity:0;
+  }
+  .scroll-hint:hover{border-color:var(--accent-2)}
+  .scroll-hint span{width:4px;height:8px;border-radius:2px;background:var(--muted);animation:wheel 1.8s infinite}
+  @keyframes wheel{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(12px)}100%{opacity:0}}
+  body.ready .scroll-hint{animation:fadeUp .8s .9s cubic-bezier(.2,.8,.2,1) forwards}
+
+  /* ---------- REVEAL ---------- */
+  .rv{
+    opacity:0;transform:translateY(36px);
+    transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);
+    transition-delay:var(--d,0s);will-change:opacity,transform;
+  }
+  .rv.in{opacity:1;transform:none}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:110px 0}
+  .sec-head{margin-bottom:56px}
+  .sec-label{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px;font-weight:600}
+  .sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4vw,2.9rem);letter-spacing:-.02em;font-weight:700}
+
+  /* ---------- PORTFOLIO DISCLAIMER ---------- */
+  .portfolio-disclaimer {
+    color: var(--muted);
+    font-size: .95rem;
+    line-height: 1.65;
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(124, 92, 255, 0.06);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    max-width: 720px;
+  }
+  .portfolio-disclaimer strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ---------- FILTERS ---------- */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+  .filter{
+    padding:9px 20px;border-radius:999px;font-size:.85rem;font-weight:500;
+    background:transparent;color:var(--muted);border:1px solid var(--border);
+    cursor:pointer;transition:.25s;font-family:inherit;
+  }
+  .filter:hover{color:var(--text);border-color:#3a3a45;transform:translateY(-1px)}
+  .filter.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+  /* ---------- GRID ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .card{
+    position:relative;border-radius:var(--radius);overflow:hidden;
+    background:var(--card);border:1px solid var(--border);cursor:pointer;
+    transition:.4s cubic-bezier(.2,.8,.2,1);opacity:0;transform:translateY(30px);
+  }
+  .card.reveal{opacity:1;transform:translateY(0)}
+  .card:hover{transform:translateY(-6px);border-color:#3a3a45;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .card-img{aspect-ratio:4/3;overflow:hidden;position:relative;background:linear-gradient(135deg,#1c1c24,#2a2a36)}
+  .card-img img{width:100%;height:100%;object-fit:cover;transition:.6s cubic-bezier(.2,.8,.2,1)}
+  .card:hover .card-img img{transform:scale(1.06)}
+  .card-body{padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .card-cat{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:6px}
+  .card-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:600}
+  .card-arrow{
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    border:1px solid var(--border);display:grid;place-items:center;
+    transition:.3s;color:var(--muted);
+  }
+  .card:hover .card-arrow{background:linear-gradient(120deg,var(--accent),var(--accent-2));border-color:transparent;color:#0a0a0c;transform:rotate(-45deg)}
+
+  /* ---------- SERVICES ---------- */
+  .services-heading-row{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:6px;
+  }
+  .discount-info-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    padding:9px 18px;
+    border-radius:999px;
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-family:inherit;
+    font-size:.85rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:.3s;
+    white-space:nowrap;
+  }
+  .discount-info-btn:hover{
+    border-color:rgba(255,140,66,.5);
+    color:var(--text);
+    background:rgba(255,140,66,.06);
+  }
+  .discount-info-btn.active{
+    border-color:rgba(255,140,66,.6);
+    background:rgba(255,140,66,.10);
+    color:var(--text);
+  }
+  .discount-word{
+    color:var(--orange);
+    font-weight:600;
+  }
+  .discount-chevron{
+    display:inline-block;
+    margin-left:6px;
+    font-size:1rem;
+    line-height:1;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .discount-info-btn.active .discount-chevron{
+    transform:rotate(180deg);
+  }
+
+  .discount-info-panel{
+    display:grid;
+    grid-template-rows:0fr;
+    opacity:0;
+    margin-top:0;
+    transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1),
+               opacity .35s ease,
+               margin-top .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .discount-info-panel > .discount-info-inner{
+    overflow:hidden;
+  }
+  .discount-info-panel.open{
+    grid-template-rows:1fr;
+    opacity:1;
+    margin-top:20px;
+  }
+  .discount-list{
+    list-style:none;
+    counter-reset:disc;
+    padding:22px 26px;
+    background:rgba(255,140,66,.05);
+    border:1px solid rgba(255,140,66,.22);
+    border-radius:16px;
+    color:var(--muted);
+    font-size:.93rem;
+    line-height:1.7;
+    position:relative;
+  }
+  .discount-list::before{
+    content:'';
+    position:absolute;
+    left:0;top:14px;bottom:14px;
+    width:3px;border-radius:2px;
+    background:linear-gradient(180deg,var(--orange),#ffb347);
+  }
+  .discount-list li{
+    counter-increment:disc;
+    position:relative;
+    padding-left:30px;
+  }
+  .discount-list li::before{
+    content:counter(disc) '.';
+    position:absolute;left:0;
+    color:var(--orange);
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .discount-list li + li{margin-top:14px}
+  .discount-list strong{color:var(--text);font-weight:600}
+  .discount-list .orange-strong{color:var(--orange);font-weight:600}
+
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+    margin-bottom:22px;
+  }
+  .service-pill{
+    padding:22px 26px;
+    border-radius:20px;
+    background:var(--bg-2);
+    border:1px solid var(--border);
+    transition:.4s cubic-bezier(.2,.8,.2,1);
+    position:relative;
+    overflow:hidden;
+  }
+  .service-pill::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 0% 50%, rgba(124,92,255,.16), transparent 70%);
+    opacity:0;transition:opacity .45s;pointer-events:none;z-index:0;
+  }
+  .service-pill:hover{
+    border-color:rgba(124,92,255,.5);
+    transform:translateY(-3px);
+    box-shadow:0 16px 40px rgba(124,92,255,.18);
+  }
+  .service-pill:hover::before{opacity:1}
+
+  .service-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px 14px;
+    margin-bottom:8px;
+    position:relative;
+    z-index:1;
+  }
+  .service-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.05rem;font-weight:600;
+    line-height:1.3;
+    transition:.3s;
+  }
+  .service-pill:hover .service-name{
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  .service-price-group{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  
+  /* 
+    ЦВЕТОВАЯ ЛЕГЕНДА ЦЕН:
+    - .service-price (синий) = обычная цена
+    - .service-price.discount (оранжевый) = скидка
+    - .service-price.free (зеленый) = бесплатно
+  */
+  .service-price{
+    flex-shrink:0;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:.82rem;
+    font-weight:600;
+    color:var(--accent-2);
+    padding:4px 11px;
+    border-radius:999px;
+    background:rgba(77,212,255,.08);
+    border:1px solid rgba(77,212,255,.22);
+    white-space:nowrap;
+    transition:.3s;
+    display:inline-flex;
+    align-items:center;
+    gap:2px;
+    letter-spacing:.02em;
+  }
+  .service-price::before{
+    content:'≈';
+    font-size:.9em;
+    opacity:.75;
+    margin-right:1px;
+  }
+  .service-pill:hover .service-price{
+    background:rgba(77,212,255,.14);
+    border-color:rgba(77,212,255,.45);
+    box-shadow:0 0 14px rgba(77,212,255,.22);
+    color:#6ee0ff;
+  }
+
+  .service-price.discount{
+    color:var(--orange);
+    background:rgba(255,140,66,.10);
+    border-color:rgba(255,140,66,.32);
+  }
+  .service-pill:hover .service-price.discount{
+    background:rgba(255,140,66,.18);
+    border-color:rgba(255,140,66,.55);
+    box-shadow:0 0 14px rgba(255,140,66,.28);
+    color:#ffa866;
+  }
+
+  .service-price.free{
+    color:var(--green);
+    background:rgba(74,222,128,.10);
+    border-color:rgba(74,222,128,.32);
+  }
+  .service-price.free::before{
+    content:''; 
+    margin-right:0;
+  }
+  .service-pill:hover .service-price.free{
+    background:rgba(74,222,128,.18);
+    border-color:rgba(74,222,128,.55);
+    box-shadow:0 0 14px rgba(74,222,128,.28);
+    color:#86efac;
+  }
+
+  .discount-tag{
+    flex-shrink:0;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:.62rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:999px;
+    background:linear-gradient(120deg,var(--orange),#ffb347);
+    color:#1a0d00;
+    white-space:nowrap;
+    transition:.3s;
+    box-shadow:0 2px 8px rgba(255,140,66,.25);
+    line-height:1;
+    display:inline-flex;
+    align-items:center;
+  }
+  .service-pill:hover .discount-tag{
+    box-shadow:0 4px 14px rgba(255,140,66,.5);
+    transform:translateY(-1px);
+  }
+
+  .discount-tag.green{
+    background:linear-gradient(120deg,var(--green),#22c55e);
+    color:#052e16;
+    box-shadow:0 2px 8px rgba(74,222,128,.25);
+  }
+  .service-pill:hover .discount-tag.green{
+    box-shadow:0 4px 14px rgba(74,222,128,.5);
+  }
+
+  .service-desc{
+    font-size:.85rem;color:var(--muted);
+    line-height:1.5;
+    position:relative;z-index:1;
+  }
+
+  .services-price-note{
+    color:var(--muted);
+    font-size:.88rem;
+    line-height:1.55;
+    margin-bottom:10px;
+    padding-left:2px;
+  }
+  .services-price-note::before{
+    content:'* ';
+    color:var(--accent-2);
+    font-weight:700;
+  }
+  .services-urgency{
+    color:var(--muted);
+    font-size:.92rem;
+    line-height:1.6;
+    margin-bottom:34px;
+    padding-left:2px;
+  }
+  .urgency-highlight{
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    font-weight:600;
+  }
+
+  .services-note{
+    color:var(--muted);
+    font-size:.95rem;
+    line-height:1.7;
+    padding:22px 26px;
+    border-radius:16px;
+    background:rgba(124,92,255,.06);
+    border:1px solid rgba(124,92,255,.2);
+    margin-bottom:22px;
+    position:relative;
+  }
+  .services-note::before{
+    content:'';
+    position:absolute;left:0;top:12px;bottom:12px;width:3px;
+    border-radius:2px;
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  }
+  .services-note strong{color:var(--text);font-weight:600}
+  .highlight{
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    font-weight:600;
+    filter:drop-shadow(0 0 8px rgba(124,92,255,.35));
+  }
+
+  .services-thanks{
+    color:var(--muted);
+    font-size:.95rem;
+    line-height:1.7;
+  }
+  .write-link{
+    position:relative;
+    display:inline-block;
+    font-weight:600;
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    cursor:pointer;
+    transition:.3s;
+  }
+  .write-link::after{
+    content:'';position:absolute;left:0;bottom:-2px;
+    width:100%;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transition:.3s;
+  }
+  .write-link:hover{transform:translateY(-1px)}
+  .write-link:hover::after{height:3px;bottom:-3px;box-shadow:0 0 12px rgba(124,92,255,.6)}
+
+  /* ---------- REVIEWS (ОБНОВЛЕНО) ---------- */
+  .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+  .reviews-actions { display: flex; gap: 10px; align-items: center; }
+  .auth-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 10px 20px; border-radius: 999px; cursor: pointer; font-size: .85rem; transition: .3s; font-weight: 500; font-family: inherit;}
+  .auth-btn:hover { border-color: var(--accent); color: var(--accent-2); }
+  .auth-status { font-size: .85rem; color: var(--green); font-weight: 500; }
+
+  .reviews-list { display: flex; flex-direction: column; gap: 20px; }
+  .reviews-empty { text-align:center; padding:80px 30px; background:var(--card); border:1px dashed var(--border); border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; gap:16px;}
+  .reviews-empty-icon{font-size:3.2rem;line-height:1;opacity:.45}
+  .reviews-empty-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:700;letter-spacing:-.02em;color:var(--text);line-height:1.1;}
+  .reviews-empty-text{color:var(--muted);font-size:1.05rem;max-width:460px;line-height:1.6;}
+
+  .review-card { display: grid; grid-template-columns: 1fr; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: .4s; padding: 24px 28px;}
+  .review-card:hover { border-color: #3a3a45; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+  .review-card.my-review { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .review-card.pending-review { opacity: 0.8; border-style: dashed; border-color: var(--orange); }
+  .review-card.rejected-review { opacity: 0.7; border-style: dashed; border-color: var(--red); }
+  
+  .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;}
+  .review-author-block { display: flex; align-items: center; gap: 12px; }
+  .review-avatar { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-family: 'Space Grotesk'; font-weight: 700; font-size: 1.1rem; color: #0a0a0c; background: linear-gradient(120deg, var(--accent), var(--accent-2)); }
+  .review-name { font-weight: 600; font-size: 1rem; }
+  .review-date { font-size: .8rem; color: var(--muted); }
+  
+  .review-stars { display: flex; align-items: center; gap: 3px; color: var(--yellow); margin-bottom: 0;}
+  .star { width: 18px; height: 18px; }
+  .star.empty { color: #3a3a45; }
+  
+  .review-text { color: var(--text); font-size: .95rem; line-height: 1.7; margin-bottom: 16px; }
+  .review-footer { margin-top: auto; padding-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; border-top: 1px solid rgba(255,255,255,0.05); }
+  
+  .review-no-contact { display: inline-flex; align-items: flex-start; gap: 7px; padding: 10px 16px; border-radius: 14px; background: rgba(255,45,85,.06); border: 1px dashed rgba(255,45,85,.35); color: #ff8fa3; font-size: .82rem; line-height: 1.4; }
+  .review-no-contact .star-red { color: #ff2d55; font-weight: 700; font-size: 1rem; line-height: 1; }
+  
+  .review-contact-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: rgba(124,92,255,.1); color: var(--accent-2); border: 1px solid rgba(124,92,255,.3); font-size: .85rem; font-weight: 600; text-decoration: none; transition: .2s;}
+  .review-contact-btn:hover { background: rgba(124,92,255,.2); border-color: var(--accent); }
+
+  .pending-badge { font-size: .7rem; color: var(--orange); background: rgba(255,140,66,.1); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,140,66,.3); text-transform: uppercase; font-weight: 700; letter-spacing: .05em;}
+  .rejected-badge { font-size: .7rem; color: var(--red); background: rgba(255,45,85,.1); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,45,85,.3); text-transform: uppercase; font-weight: 700; letter-spacing: .05em;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .about-text p{color:var(--muted);margin-bottom:20px;font-size:1.05rem}
+  .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+  .skill{padding:8px 16px;border-radius:999px;font-size:.85rem;background:var(--bg-2);border:1px solid var(--border);color:var(--muted)}
+
+  .about-visual{
+    aspect-ratio:1;border-radius:var(--radius);position:relative;
+    background:linear-gradient(135deg,rgba(124,92,255,.15),rgba(77,212,255,.08));
+    border:1px solid var(--border);overflow:hidden;cursor:pointer;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s cubic-bezier(.2,.8,.2,1),border-color .5s;
+    will-change:transform;
+  }
+  .about-visual::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 30% 30%,rgba(124,92,255,.35),transparent 60%);
+    transition:opacity .5s;z-index:0;
+  }
+  .about-visual:hover,.about-visual.active{
+    transform:scale(1.03);border-color:rgba(124,92,255,.5);
+    box-shadow:0 25px 60px rgba(124,92,255,.25);
+  }
+  .about-ya{
+    position:absolute;inset:0;display:grid;place-items:center;z-index:2;pointer-events:none;
+    transition:opacity .4s, transform .55s cubic-bezier(.2,.8,.2,1);
+  }
+  .about-ya span{
+    font-family:'Space Grotesk',sans-serif;font-size:6rem;font-weight:700;
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:floatY 6s ease-in-out infinite;
+  }
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .about-visual:hover .about-ya,.about-visual.active .about-ya{opacity:0;transform:scale(.7)}
+  .about-hint{
+    position:absolute;bottom:16px;right:18px;z-index:3;
+    font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--muted);opacity:.65;transition:opacity .3s;pointer-events:none;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .about-hint::before{content:'наведи'}
+  .about-hint::after{content:'↗';font-size:.85rem}
+  .about-visual:hover .about-hint,.about-visual.active .about-hint{opacity:0}
+  .about-reveal{
+    position:absolute;inset:0;padding:34px;
+    display:flex;flex-direction:column;justify-content:center;z-index:1;
+    opacity:0;transform:translateY(15px);
+    transition:opacity .45s ease, transform .55s cubic-bezier(.2,.8,.2,1);
+    overflow-y:auto;overscroll-behavior:contain;
+  }
+  .about-reveal p{font-size:.92rem;color:var(--text);margin-bottom:14px;line-height:1.65}
+  .about-reveal p:last-child{margin-bottom:0}
+  .about-reveal::-webkit-scrollbar{width:4px}
+  .about-reveal::-webkit-scrollbar-track{background:transparent}
+  .about-reveal::-webkit-scrollbar-thumb{background:rgba(124,92,255,.5);border-radius:2px}
+  .about-visual:hover .about-reveal,.about-visual.active .about-reveal{
+    opacity:1;transform:translateY(0);transition-delay:.1s;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{text-align:center}
+  .contact h2{
+    font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,5vw,3.6rem);
+    letter-spacing:-.02em;margin-bottom:22px;line-height:1.1;
+  }
+
+  .contact-cards{
+    display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
+    align-items:center;
+    margin:10px 0 0;
+  }
+  .contact-or{
+    color:var(--muted);
+    font-size:.9rem;
+    font-weight:500;
+    padding:0 4px;
+    white-space:nowrap;
+  }
+  .contact-card{
+    min-width:240px;max-width:320px;
+    height:170px;
+    padding:0 26px;
+    border-radius:26px;
+    background:var(--bg-2);
+    border:1px solid var(--border);
+    cursor:pointer;
+    overflow:hidden;
+    position:relative;
+    transition:border-color .4s,
+               box-shadow .4s,
+               transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .contact-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%,rgba(124,92,255,.20),transparent 70%);
+    opacity:0;transition:opacity .45s;pointer-events:none;z-index:0;
+  }
+  .contact-card:hover,
+  .contact-card.active{
+    border-color:rgba(124,92,255,.55);
+    box-shadow:0 18px 45px rgba(124,92,255,.22);
+    transform:translateY(-3px);
+  }
+  .contact-card:hover::before,
+  .contact-card.active::before{opacity:1}
+
+  .cc-title{
+    position:absolute;
+    top:50%;left:22px;right:22px;
+    transform:translateY(-50%);
+    text-align:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1rem;font-weight:600;
+    white-space:nowrap;
+    z-index:1;
+    transition:top .4s cubic-bezier(.2,.8,.2,1),
+               transform .4s cubic-bezier(.2,.8,.2,1),
+               color .3s;
+  }
+  .contact-card:hover .cc-title,
+  .contact-card.active .cc-title{
+    top:22px;
+    transform:translateY(0);
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  .cc-info{
+    position:absolute;
+    left:22px;right:22px;bottom:20px;
+    text-align:center;
+    z-index:1;
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity .35s ease .1s,
+               transform .45s cubic-bezier(.2,.8,.2,1) .1s;
+    pointer-events:none;
+  }
+  .contact-card:hover .cc-info,
+  .contact-card.active .cc-info{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .cc-info p{
+    color:var(--text);
+    font-size:.95rem;
+    letter-spacing:.05em;
+    margin-bottom:10px;
+    word-break:break-word;
+  }
+  .cc-info p.cc-muted{
+    color:var(--muted);
+    font-size:.7rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .cc-info p.cc-email{
+    font-size:.82rem;
+    letter-spacing:0;
+    word-break:break-all;
+  }
+  .cc-go{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:999px;
+    background:linear-gradient(120deg,var(--accent),var(--accent-2));
+    color:#0a0a0c;
+    font-weight:600;font-size:.8rem;
+    transition:.25s;
+    margin-top:4px;
+    cursor:pointer;
+  }
+  .cc-go:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(124,92,255,.45)}
+
+  .contact-note{
+    color:var(--muted);
+    font-size:.92rem;
+    letter-spacing:.02em;
+    margin-top:30px;
+    line-height:1.5;
+  }
+  .heart{
+    color:#fff;
+    font-size:.85rem;
+    display:inline-block;
+    margin-left:4px;
+    vertical-align:middle;
+    position:relative;top:-1px;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.35));
+    animation:heartBeat 2.4s ease-in-out infinite;
+  }
+  @keyframes heartBeat{
+    0%,100%{transform:scale(1)}
+    15%{transform:scale(1.18)}
+    30%{transform:scale(1)}
+    45%{transform:scale(1.1)}
+    60%{transform:scale(1)}
+  }
+
+  .socials{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+  .social{
+    padding:12px 22px;border-radius:999px;border:1px solid var(--border);
+    font-size:.9rem;color:var(--muted);transition:.25s;font-weight:500;
+  }
+  .social:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--border);padding:36px 0;
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:16px;color:var(--muted);font-size:.85rem;
+  }
+  .footer-heart-icon{
+    display:inline-block;
+    width:13px;
+    height:12px;
+    margin-left:5px;
+    vertical-align:-1px;
+    color:#ff2d55;
+    animation:none !important;
+    transition:none !important;
+  }
+  
+  /* НОВЫЙ СТИЛЬ ДЛЯ ССЫЛКИ НА БАГ */
+  .footer-bug-link {
+    color: var(--muted);
+    font-size: 0.75rem;
+    opacity: 0.4;
+    transition: opacity 0.3s, color 0.3s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .footer-bug-link:hover {
+    opacity: 1;
+    color: var(--accent-2);
+  }
+
+  /* ---------- MODAL ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:200;display:none;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+    padding:24px;overflow-y:auto;
+  }
+  .modal.open{display:flex;align-items:center;justify-content:center}
+  .modal-box{
+    background:var(--bg-2);border:1px solid var(--border);
+    border-radius:var(--radius);max-width:820px;width:100%;
+    overflow:hidden;animation:modalIn .35s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .modal-img{aspect-ratio:16/9;overflow:hidden;background:#1c1c24}
+  .modal-img img{width:100%;height:100%;object-fit:cover}
+  .modal-content{padding:32px}
+  .modal-content h3{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;margin-bottom:8px}
+  .modal-content .card-cat{margin-bottom:16px}
+  .modal-content p{color:var(--muted);margin-bottom:24px}
+  .modal-close{
+    position:absolute;top:24px;right:24px;width:44px;height:44px;
+    border-radius:50%;background:rgba(255,255,255,.08);border:none;
+    color:#fff;font-size:1.4rem;cursor:pointer;display:grid;place-items:center;
+    transition:.2s;z-index:10;
+  }
+  .modal-close:hover{background:rgba(255,255,255,.18);transform:rotate(90deg)}
+
+  /* Стили для формы внутри модалки (Баг) */
+  .bug-input, .bug-textarea {
+    width: 100%; padding: 14px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-family: inherit; font-size: .95rem; outline: none; transition: .3s;
+    margin-bottom: 15px;
+  }
+  .bug-input:focus, .bug-textarea:focus { border-color: var(--accent); }
+  .bug-textarea { resize: vertical; min-height: 100px; }
+
+  /* ---------- LOVE OVERLAY ---------- */
+  .love-overlay{
+    position:fixed;inset:0;z-index:9500;
+    background:rgba(10,10,12,.78);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    opacity:0;
+    animation:loveOverlayIn .35s ease forwards;
+    transition:opacity .45s ease;
+    overflow:hidden;
+  }
+  @keyframes loveOverlayIn{to{opacity:1}}
+  .love-overlay.fade-out{opacity:0;pointer-events:none}
+
+  .love-heart{
+    position:absolute;
+    left:50%;top:50%;
+    width:120px;
+    height:auto;
+    color:#ffffff;
+    --ox:0px;
+    --oy:0px;
+    transform:translate(-50%,-50%);
+    animation:heartFlight 1.8s cubic-bezier(.25,.8,.25,1) forwards;
+    will-change:transform,color,filter;
+    user-select:none;
+    pointer-events:none;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.3));
+  }
+  .love-heart svg{display:block;width:100%;height:auto}
+
+  @keyframes heartFlight{
+    0%{
+      transform:translate(calc(-50% + var(--ox)), calc(-50% + var(--oy))) scale(0.12) rotate(-22deg);
+      color:#ffffff;
+      filter:drop-shadow(0 0 4px rgba(255,255,255,.25));
+      opacity:0;
+      animation-timing-function:cubic-bezier(.35,0,.4,1);
+    }
+    10%{opacity:1;animation-timing-function:cubic-bezier(.2,.65,.35,1)}
+    35%{
+      transform:translate(-50%,-50%) scale(1.42) rotate(6deg);
+      color:#ffffff;
+      filter:drop-shadow(0 0 28px rgba(255,255,255,.72));
+      animation-timing-function:cubic-bezier(.55,0,.85,.25);
+    }
+    50%{
+      transform:translate(-50%,-50%) scale(2.35) rotate(0deg);
+      color:#ff2d55;
+      filter:drop-shadow(0 0 55px rgba(255,45,85,1));
+      animation-timing-function:cubic-bezier(.15,.6,.35,1);
+    }
+    68%{
+      transform:translate(-50%,-50%) scale(1.74) rotate(0deg);
+      color:#ff2d55;
+      filter:drop-shadow(0 0 42px rgba(255,45,85,.85));
+      animation-timing-function:ease-out;
+    }
+    100%{
+      transform:translate(-50%,-50%) scale(1.78) rotate(0deg);
+      color:#ff2d55;
+      filter:drop-shadow(0 0 40px rgba(255,45,85,.85));
+    }
+  }
+
+  .love-text{
+    position:absolute;
+    left:50%;
+    top:calc(50% + 130px);
+    transform:translate(-50%, 20px);
+    opacity:0;
+    color:#ffffff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(1rem, 3vw, 1.4rem);
+    font-weight:500;
+    text-align:center;
+    max-width:90vw;
+    line-height:1.4;
+    letter-spacing:.01em;
+    animation:loveTextIn .55s 1.4s cubic-bezier(.2,.8,.2,1) forwards;
+    will-change:opacity, transform;
+    padding:0 20px;
+  }
+  @keyframes loveTextIn{
+    from{opacity:0;transform:translate(-50%, 30px)}
+    to{opacity:1;transform:translate(-50%, 0)}
+  }
+
+  @media(max-width:600px){
+    .love-heart{width:92px}
+    .love-text{top:calc(50% + 100px)}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:820px){
+    .nav-links{
+      position:fixed;top:70px;left:0;right:0;
+      flex-direction:column;background:rgba(10,10,12,.98);
+      padding:24px;gap:20px;border-bottom:1px solid var(--border);
+      transform:translateY(calc(-100% - 70px));
+      visibility:hidden;opacity:0;
+      transition:transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s ease, visibility .4s;
+      z-index:99;
+    }
+    .nav-links.open{transform:translateY(0);visibility:visible;opacity:1}
+    .burger{display:block}
+    .grid{grid-template-columns:1fr}
+    .services-grid{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr;gap:40px}
+    .about-visual{max-width:400px;margin:0 auto;order:-1;min-height:300px;opacity:1;transform:none}
+    .about-reveal{padding:26px}
+    .about-reveal p{font-size:.88rem}
+    .about-hint::before{content:'нажми'}
+    section{padding:80px 0}
+    footer{justify-content:center;text-align:center;flex-direction:column;}
+    .modal-content{padding:24px}
+    .scroll-hint{display:none}
+    .contact-card{min-width:100%;max-width:380px}
+    .services-note{padding:18px 20px 18px 26px}
+    .reviews-empty{padding:60px 22px}
+  }
+  @media(max-width:600px){
+    .services-heading-row{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:14px;
+    }
+    .hero-cta{gap:10px}
+    .hero-cta .btn{padding:12px 22px;font-size:.88rem}
+    .contact-or{width:100%;text-align:center}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+    .hero-tag,.hero h1,.hero p,.hero-cta,.scroll-hint,.rv,.card{opacity:1!important;transform:none!important}
+    .orbs i,.about-visual span,.heart{animation:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ЛОАДЕР -->
+<div id="loader">
+  <div class="l-logo">DouleRs<span>.com</span></div>
+  <div class="l-bar"><i></i></div>
+</div>
+
+<!-- ПРОГРЕСС -->
+<div id="progress"></div>
+
+<!-- ФОНОВЫЕ ПЯТНА -->
+<div class="orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">DouleRs<span>.com</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#works">Портфолио</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#about">Обо мне</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-inner" id="heroInner">
+    <div class="hero-tag"><span class="dot"></span>Открыт для проектов</div>
+    <h1>Привет, я <span class="grad">Даниил</span>,<br>
+      <span class="hero-h1-sub">давай сделаем твой сайт мечты</span>
+    </h1>
+    <p>Приветствую всех на своем сайте. Здесь вы найдете работы от простой сложности до средней.</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-primary">Посмотреть услуги →</a>
+      <a href="#works" class="btn btn-ghost">Портфолио</a>
+      <a href="#contact" class="btn btn-ghost">Связаться</a>
+    </div>
+  </div>
+  <a href="#works" class="scroll-hint" aria-label="Вниз"><span></span></a>
+</header>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-label">Портфолио</div>
+      <h2 class="sec-title">Избранные работы</h2>
+      <p class="portfolio-disclaimer">
+        <strong>Важное уточнение:</strong> это личные проекты, сделанные для портфолио, они не выставлялись на продажу. 
+        Вы можете заказать у меня сайт по аналогичным наброскам из этого портфолио — я адаптирую дизайн и функционал под ваши задачи.
+      </p>
+    </div>
+
+    <div class="filters rv" style="--d:.1s" id="filters">
+      <button class="filter active" data-cat="all">Все</button>
+      <button class="filter" data-cat="landing">Лендинг (Сайт-визитка)</button>
+      <button class="filter" data-cat="multipage">Многостраничные</button>
+      <button class="filter" data-cat="redesign">Редизайн</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-label">Услуги</div>
+      <div class="services-heading-row">
+        <h2 class="sec-title">Что я могу сделать</h2>
+        <button class="discount-info-btn" id="discountInfoBtn" type="button" aria-expanded="false">
+          В честь чего <span class="discount-word">скидки</span>?
+          <span class="discount-chevron" aria-hidden="true">⌄</span>
+        </button>
+      </div>
+      <div class="discount-info-panel" id="discountInfoPanel">
+        <div class="discount-info-inner">
+          <ul class="discount-list">
+            <li>Скидки действуют в честь открытия сайта. Сейчас снижена стоимость на большинство услуг — вы платите меньше, а получаете тот же результат.</li>
+            <li>Акция стартовала <strong>02.11.2026</strong>. С этого момента цены со скидкой уже активны — можно спокойно выбирать услугу и оформлять заказ.</li>
+            <li>В течение дня цена со скидкой <strong>не меняется и не исчезает</strong> — можно не торопиться. Скидка может закончиться только <span class="orange-strong">в 00:00, на начало следующего дня</span>. То есть весь текущий день указанные цены точно в силе.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="services-grid rv" style="--d:.1s">
+      <div class="service-pill">
+        <div class="service-head">
+          <div class="service-name">Сайт-визитка</div>
+          <div class="service-price-group">
+            <span class="discount-tag green">За отзыв</span>
+            <div class="service-price free">Бесплатно</div>
+          </div>
+        </div>
+        <div class="service-desc">Небольшой сайт о вас или компании — аккуратно и по делу</div>
+      </div>
+      <div class="service-pill">
+        <div class="service-head">
+          <div class="service-name">Адаптив под мобильные</div>
+          <div class="service-price-group">
+            <span class="discount-tag green">За отзыв</span>
+            <div class="service-price free">Бесплатно</div>
+          </div>
+        </div>
+        <div class="service-desc">Сделаю сайт удобным на телефонах и планшетах</div>
+      </div>
+      <div class="service-pill">
+        <div class="service-head">
+          <div class="service-name">Многостраничный сайт</div>
+          <div class="service-price-group">
+            <span class="discount-tag">Скидка</span>
+            <div class="service-price discount">299–499 ₽</div>
+          </div>
+        </div>
+        <div class="service-desc">До 5–7 страниц: главная, услуги, о нас, контакты и др.</div>
+      </div>
+      <div class="service-pill">
+        <div class="service-head">
+          <div class="service-name">Редизайн существующего</div>
+          <div class="service-price-group">
+            <span class="discount-tag green">За отзыв</span>
+            <div class="service-price free">Бесплатно</div>
+          </div>
+        </div>
+        <div class="service-desc">Обновлю старый сайт на современный лад</div>
+      </div>
+    </div>
+
+    <p class="services-price-note rv" style="--d:.13s">
+      Точная цена будет выведена по итогам обсуждения заказа.
+    </p>
+
+    <p class="services-urgency rv" style="--d:.16s">
+      Цены могут измениться. <span class="urgency-highlight">Успей купить по такой цене!</span>
+    </p>
+
+    <p class="services-note rv" style="--d:.2s">
+      Услуги с серверной частью, базами данных (<strong>Бэкенд</strong>) <strong>не делаю</strong>. Только <span class="highlight">Фронтенд</span>. Только <span class="highlight">красивую визуальную часть</span>.
+    </p>
+
+    <p class="services-thanks rv" style="--d:.24s">
+      Спасибо за понимание. Если понадобилась услуга, <a href="#contact" class="write-link">пиши</a>
+    </p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin-bottom: 30px;">
+      <div class="sec-label">Отзывы</div>
+      <div class="reviews-header">
+        <h2 class="sec-title">Что говорят покупатели</h2>
+        <div class="reviews-actions">
+          <div id="authArea">
+            <!-- JS вставит кнопку входа или имя пользователя -->
+          </div>
+          <a href="otzyv.html" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Написать отзыв</a>
+        </div>
+      </div>
+      <p class="reviews-note" style="color:var(--muted); font-size:.9rem; margin-top:14px;">Отзывы публикуются после проверки модератором.</p>
+    </div>
+
+    <div class="reviews-list" id="reviewsList">
+      <div class="reviews-empty">
+        <div class="reviews-empty-icon">💬</div>
+        <h3 class="reviews-empty-title">Отзывов еще нет</h3>
+        <p class="reviews-empty-text">Купи услугу и напиши свой отзыв, он будет первым!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text rv">
+        <div class="sec-label">Обо мне</div>
+        <h2 class="sec-title" style="margin-bottom:26px">Немного о том,<br>чем я живу</h2>
+        <div class="skills"></div>
+      </div>
+
+      <div class="about-visual rv" style="--d:.15s" id="aboutCard">
+        <div class="about-ya"><span>Я</span></div>
+        <div class="about-reveal">
+          <p>Привет! Меня зовут Даниил, и я занимаюсь фронтенд-разработкой. Беру заказы средней сложности — от аккуратных лендингов до интерактивных интерфейсов с анимациями.</p>
+          <p>Больше всего люблю frontend за то, что можно сразу увидеть результат своей работы: нажал «сохранить» — и вот оно, живое, в браузере. Нравится возиться с вёрсткой, доводить детали, чтобы всё двигалось плавно и выглядело красиво.</p>
+          <p>Открыт к интересным проектам. Если у тебя есть идея — пиши, обсудим.</p>
+        </div>
+        <div class="about-hint"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg-2)">
+  <div class="wrap contact">
+    <div class="sec-label rv" style="display:inline-block">Контакты</div>
+    <h2 class="rv" style="--d:.05s">Давай сделаем<br>что-то крутое</h2>
+
+    <div class="contact-cards rv" style="--d:.1s">
+      <div class="contact-card" data-type="email">
+        <div class="cc-title">Почта для связи</div>
+        <div class="cc-info">
+          <p class="cc-muted">Почта</p>
+          <p class="cc-email">doulers.site192@gmail.com</p>
+          <a href="mailto:doulers.site192@gmail.com" class="cc-go">Написать →</a>
+        </div>
+      </div>
+
+      <div class="contact-card" data-type="tg">
+        <div class="cc-title">Телеграмм для связи</div>
+        <div class="cc-info">
+          <p class="cc-muted">Telegram</p>
+          <p>@moliy23</p>
+          <a href="https://t.me/moliy23" target="_blank" rel="noopener" class="cc-go">Написать →</a>
+        </div>
+      </div>
+
+      <span class="contact-or">или же</span>
+
+      <div class="contact-card contact-card--form" id="formCard" data-type="form">
+        <div class="cc-title">Подать заявку</div>
+        <div class="cc-info">
+          <p class="cc-muted">Форма заявки</p>
+          <span class="cc-go cc-go--form">Открыть →</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="contact-note rv" style="--d:.15s">
+      Пишите туда, куда вам удобно<span class="heart">♥</span>
+    </p>
+
+    <div class="socials rv" style="--d:.2s"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="wrap">
+  <footer>
+    <div>© <span id="year"></span> DouleRs.com. Все права защищены.</div>
+    <div>Сделано с любовью<svg class="footer-heart-icon" viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+    
+    <!-- ДОБАВЛЕНО: кнопка для сообщения об ошибке -->
+    <a href="#" id="reportBugBtn" class="footer-bug-link">🐞 Нашли ошибку?</a>
+  
+  </footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <button class="modal-close" id="modalClose">×</button>
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<!-- ОСНОВНОЙ СКРИПТ САЙТА -->
+<script>
+/* ================= ДАННЫЕ ПРОЕКТОВ (ИСПРАВЛЕНЫ ПУТИ) ================= */
+const projects = [
+  {
+    cat: 'landing',
+    title: 'Зерно · Кофейня',
+    desc: 'Уютный, светлый лендинг для кофейни. Кремовые тона, аккуратные карточки меню, галерея и плейсхолдеры под фото.',
+    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23FAF3E8'/%3E%3Ccircle cx='400' cy='300' r='220' fill='%23F0E1CF'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='85' font-weight='bold' fill='%233D2415' text-anchor='middle'%3EЗЕРНО%3C/text%3E%3C/svg%3E",
+    link: 'zerno.html'
+  },
+  {
+    cat: 'landing',
+    title: 'Бритва · Барбершоп',
+    desc: 'Тёмный, брутальный лендинг с характером. Индустриальный стиль, сетка услуг и карточки мастеров.',
+    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%230E0E10'/%3E%3Cpath d='M0 600 L800 0 L800 600 Z' fill='%231A1A1E'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='85' font-weight='bold' fill='%23D4A259' text-anchor='middle'%3EБРИТВА%3C/text%3E%3C/svg%3E",
+    link: 'britva.html'
+  },
+  {
+    cat: 'landing',
+    title: 'Терруар · Винный бар',
+    desc: 'Редакционный стиль для винного бара. Глубокие зелёные тона, крупные серифные заголовки и акцент на атмосферу.',
+    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23121310'/%3E%3Crect x='150' y='150' width='500' height='300' fill='none' stroke='%23C9A86A' stroke-width='2'/%3E%3Ctext x='400' y='330' font-family='serif' font-size='85' font-weight='bold' fill='%23C9A86A' text-anchor='middle'%3EТЕРРУАР%3C/text%3E%3C/svg%3E",
+    link: 'terroir.html'
+  },
+  {
+    cat: 'multipage',
+    title: 'LUMEN · Фотограф',
+    desc: 'Многостраничный сайт (4 страницы). Минимализм, галерейный стиль, фильтры портфолио и плавные переходы.',
+    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23F7F5F1'/%3E%3Ccircle cx='400' cy='300' r='180' fill='none' stroke='%231C1A17' stroke-width='2'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='75' font-weight='300' letter-spacing='15' fill='%231C1A17' text-anchor='middle'%3ELUMEN%3C/text%3E%3C/svg%3E",
+    link: 'photographer/index.html'
+  },
+  {
+    cat: 'redesign',
+    title: 'Рогалик · Редизайн',
+    desc: 'Кейс редизайна: как сайт из 2010-х превратился в современную пекарню. Встроенный переключатель ДО/ПОСЛЕ.',
+    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23FBF3E7'/%3E%3Ccircle cx='200' cy='150' r='120' fill='%23F0E1CF'/%3E%3Ccircle cx='650' cy='500' r='180' fill='%23F0E1CF'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='85' font-weight='bold' fill='%23C47F3B' text-anchor='middle'%3EРОГАЛИК%3C/text%3E%3C/svg%3E",
+    link: 'pekar.html'
+  }
+];
+
+const catNames = { 
+  landing: 'Лендинг (Сайт-визитка)', 
+  multipage: 'Многостраничный', 
+  rediz: 'Редизайн',
+  redesign: 'Редизайн'
+};
+
+/* ================= ЛОАДЕР ================= */
+const loader = document.getElementById('loader');
+let loaderHidden = false;
+function hideLoader(){
+  if(loaderHidden) return;
+  loaderHidden = true;
+  loader.classList.add('done');
+  document.body.classList.add('ready');
+}
+window.addEventListener('load', ()=> setTimeout(hideLoader, 450));
+setTimeout(hideLoader, 1800);
+
+/* ================= РЕНДЕР ================= */
+const grid = document.getElementById('grid');
+function render(filter='all'){
+  grid.innerHTML = '';
+  projects.forEach((p, i)=>{
+    if(filter !== 'all' && p.cat !== filter) return;
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.style.transitionDelay = (i*70)+'ms';
+    el.innerHTML = `
+      <div class="card-img"><img src="${p.img}" alt="${p.title}" loading="lazy"></div>
+      <div class="card-body">
+        <div>
+          <div class="card-cat">${catNames[p.cat] || ''}</div>
+          <div class="card-title">${p.title}</div>
+        </div>
+        <div class="card-arrow">↗</div>
+      </div>`;
+    el.addEventListener('click', ()=> openModal(p));
+    grid.appendChild(el);
+  });
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.card').forEach(c=> io.observe(c));
+  });
+}
+
+/* ================= ФИЛЬТРЫ ================= */
+const filters = document.getElementById('filters');
+filters.addEventListener('click', e=>{
+  const btn = e.target.closest('.filter');
+  if(!btn) return;
+  filters.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render(btn.dataset.cat);
+});
+
+/* ================= МОДАЛКА ================= */
+const modal = document.getElementById('modal');
+const modalBox = document.getElementById('modalBox');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(p){
+  modalBox.innerHTML = `
+    <div class="modal-img"><img src="${p.img}" alt="${p.title}"></div>
+    <div class="modal-content">
+      <div class="card-cat">${catNames[p.cat] || ''}</div>
+      <h3>${p.title}</h3>
+      <p>${p.desc || ''}</p>
+      <a href="${p.link}" target="_blank" class="btn btn-primary">Открыть сайт →</a>
+    </div>`;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeModal(); });
+
+/* ================= КНОПКА "В ЧЕСТЬ ЧЕГО СКИДКИ?" ================= */
+const discountInfoBtn = document.getElementById('discountInfoBtn');
+const discountInfoPanel = document.getElementById('discountInfoPanel');
+if(discountInfoBtn && discountInfoPanel){
+  discountInfoBtn.addEventListener('click', ()=>{
+    const isOpen = discountInfoPanel.classList.toggle('open');
+    discountInfoBtn.classList.toggle('active', isOpen);
+    discountInfoBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+}
+
+/* ================= КАРТОЧКА "Я" ================= */
+const aboutCard = document.getElementById('aboutCard');
+if(aboutCard){
+  aboutCard.addEventListener('click', ()=>{
+    aboutCard.classList.toggle('active');
+  });
+  document.addEventListener('click', e=>{
+    if(!aboutCard.contains(e.target)) aboutCard.classList.remove('active');
+  });
+}
+
+/* ================= ПЛАШКИ КОНТАКТОВ ================= */
+document.querySelectorAll('.contact-card:not(.contact-card--form)').forEach(card=>{
+  card.addEventListener('click', (e)=>{
+    if(e.target.closest('.cc-go')) return;
+    document.querySelectorAll('.contact-card').forEach(c=>{
+      if(c !== card) c.classList.remove('active');
+    });
+    card.classList.toggle('active');
+  });
+});
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.contact-card')){
+    document.querySelectorAll('.contact-card').forEach(c=>c.classList.remove('active'));
+  }
+});
+
+/* ================= КАРТОЧКА "ПОДАТЬ ЗАЯВКУ" ================= */
+const formCard = document.getElementById('formCard');
+if(formCard){
+  formCard.addEventListener('click', (e)=>{
+    e.preventDefault();
+    playLoveAnimation(formCard, 'zayavka.html');
+  });
+}
+
+/* ================= АНИМАЦИЯ СЕРДЕЧКА ================= */
+let loveAnimating = false;
+
+const HEART_SVG = `
+  <svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="currentColor" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+  </svg>`;
+
+function playLoveAnimation(buttonEl, url){
+  if(loveAnimating) return;
+  loveAnimating = true;
+
+  const rect = buttonEl.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const ox = cx - window.innerWidth / 2;
+  const oy = cy - window.innerHeight / 2;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'love-overlay';
+  overlay.innerHTML = `
+    <div class="love-heart" style="--ox:${ox}px;--oy:${oy}px">${HEART_SVG}</div>
+    <div class="love-text">Спасибо, мы сделаем вам лучший сайт</div>
+  `;
+  document.body.appendChild(overlay);
+
+  const prevOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(()=>{
+    if(url && url !== 'mailto:' && url !== '#' && url !== ''){
+      if(url.startsWith('mailto:')){
+        window.location.href = url;
+      } else if (url === 'zayavka.html') {
+        window.location.href = url;
+      } else {
+        const w = window.open(url, '_blank');
+        if(!w) window.location.href = url;
+      }
+    }
+    overlay.classList.add('fade-out');
+    setTimeout(()=>{
+      overlay.remove();
+      document.body.style.overflow = prevOverflow;
+      loveAnimating = false;
+    }, 450);
+  }, 2500);
+}
+
+document.querySelectorAll('.cc-go:not(.cc-go--form)').forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    playLoveAnimation(link, link.getAttribute('href'));
+  });
+});
+
+/* ================= ПОЯВЛЕНИЕ КАРТОЧЕК ================= */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.classList.add('reveal');
+      io.unobserve(en.target);
+    }
+  });
+}, { threshold:0.15 });
+
+/* ================= REVEAL ================= */
+const rvIO = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.classList.add('in');
+      rvIO.unobserve(en.target);
+    }
+  });
+}, { threshold:0.15, rootMargin:'0px 0px -60px 0px' });
+document.querySelectorAll('.rv').forEach(el=> rvIO.observe(el));
+
+/* ================= БУРГЕР ================= */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', ()=>{
+  const open = navLinks.classList.toggle('open');
+  burger.classList.toggle('open', open);
+});
+navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{
+  navLinks.classList.remove('open');
+  burger.classList.remove('open');
+}));
+
+/* ================= СКРОЛЛ ================= */
+const nav = document.getElementById('nav');
+const progress = document.getElementById('progress');
+const heroInner = document.getElementById('heroInner');
+let ticking = false;
+
+function onScroll(){
+  const y = window.scrollY || window.pageYOffset;
+  nav.classList.toggle('scrolled', y > 20);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (max > 0 ? (y / max * 100) : 0) + '%';
+  if(heroInner && y < window.innerHeight){
+    heroInner.style.transform = `translateY(${y * 0.16}px)`;
+    heroInner.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.85));
+  }
+  ticking = false;
+}
+window.addEventListener('scroll', ()=>{
+  if(!ticking){
+    requestAnimationFrame(onScroll);
+    ticking = true;
+  }
+}, { passive:true });
+onScroll();
+
+/* ================= ПАРАЛЛАКС ================= */
+const hero = document.querySelector('.hero');
+const heroGlow = document.querySelector('.hero-glow');
+if(hero && heroGlow){
+  hero.addEventListener('mousemove', e=>{
+    const r = hero.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    heroGlow.style.transform = `translate(${x * 50}px, ${y * 50}px)`;
+  });
+  hero.addEventListener('mouseleave', ()=>{
+    heroGlow.style.transform = 'translate(0,0)';
+  });
+}
+
+/* ================= ГОД ================= */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ================= СТАРТ ================= */
+render();
+
+/* ================= ЛОГИКА КНОПКИ БАГА ================= */
+document.getElementById('reportBugBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  modalBox.innerHTML = `
+    <div class="modal-content">
+      <div class="card-cat">Обратная связь</div>
+      <h3>Нашли ошибку?</h3>
+      <p>Опишите, что именно не работает или выглядит странно. Я постараюсь всё исправить как можно скорее.</p>
+      <form id="bugForm">
+        <textarea id="bugText" class="bug-textarea" placeholder="Что случилось? (например: кнопка не нажимается, текст съехал и т.д.)" required></textarea>
+        <input type="text" id="bugContact" class="bug-input" placeholder="Контакт для связи (необязательно)">
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить</button>
+      </form>
+    </div>
+  `;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('bugForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Отправка...';
+    btn.disabled = true;
+
+    const formData = new FormData();
+    formData.append('access_key', '58d02f0a-4a48-488d-83a8-b841c841bd9d');
+    formData.append('subject', 'Сообщение об ошибке на сайте');
+    formData.append('Описание бага', document.getElementById('bugText').value);
+    formData.append('Контакт для связи', document.getElementById('bugContact').value || 'Не указан');
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      if (data.success) {
+        modalBox.innerHTML = `
+          <div class="modal-content" style="text-align:center; padding: 40px 20px;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">✅</div>
+            <h3>Спасибо!</h3>
+            <p>Ваше сообщение отправлено. Я обязательно проверю и исправлю.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('modalClose').click()" style="margin-top: 20px;">Закрыть</button>
+          </div>
+        `;
+      } else {
+        throw new Error('Ошибка отправки');
+      }
+    } catch (err) {
+      alert('Не удалось отправить сообщение. Попробуйте позже.');
+      btn.textContent = 'Отправить';
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+
+<!-- СКРИПТ ДЛЯ ОТЗЫВОВ (FIREBASE) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3g9YS3keWJA49ZyIUyfFBhuH80NRLftE",
+    authDomain: "doulers-fe372.firebaseapp.com",
+    projectId: "doulers-fe372",
+    storageBucket: "doulers-fe372.firebasestorage.app",
+    messagingSenderId: "137471473397",
+    appId: "1:137471473397:web:4b4acfcbffd1babb5ef7bc"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  let currentUser = null;
+  let currentUserId = null;
+
+  const reviewsList = document.getElementById('reviewsList');
+  const authArea = document.getElementById('authArea');
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && !user.isAnonymous) {
+      currentUser = user;
+      currentUserId = user.uid;
+      authArea.innerHTML = `<span class="auth-status">Вы вошли: ${user.displayName || 'Гость'}</span>`;
+    } else {
+      if (!user) signInAnonymously(auth).catch(console.error);
+      currentUser = user;
+      currentUserId = user ? user.uid : null;
+      authArea.innerHTML = `<button id="loginBtnMain" class="auth-btn">Войти через Google</button>`;
+      
+      document.getElementById('loginBtnMain').addEventListener('click', () => {
+        signInWithPopup(auth, provider).catch(err => alert("Ошибка: " + err.message));
+      });
+    }
+    loadReviews();
+  });
+
+  async function loadReviews() {
+    reviewsList.innerHTML = '<p style="color:var(--muted); text-align:center;">Загрузка отзывов...</p>';
+    let allReviews = [];
+
+    try {
+      const qApproved = query(collection(db, "reviews"), where("status", "==", "approved"));
+      const snapApproved = await getDocs(qApproved);
+      snapApproved.forEach(doc => allReviews.push({ id: doc.id, ...doc.data() }));
+
+      if (currentUserId && currentUser && !currentUser.isAnonymous) {
+        const qMine = query(collection(db, "reviews"), where("userId", "==", currentUserId));
+        const snapMine = await getDocs(qMine);
+        snapMine.forEach(doc => {
+          const data = doc.data();
+          if (!allReviews.find(r => r.id === doc.id)) {
+            allReviews.push({ id: doc.id, ...data });
+          }
+        });
+      } else {
+        const myReviewId = localStorage.getItem('myReviewId');
+        if (myReviewId) {
+          const docRef = doc(db, "reviews", myReviewId);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (!allReviews.find(r => r.id === myReviewId)) {
+              allReviews.push({ id: docSnap.id, ...data });
+            }
+          }
+        }
+      }
+
+      allReviews.sort((a, b) => {
+        const timeA = a.createdAt ? a.createdAt.seconds : 0;
+        const timeB = b.createdAt ? b.createdAt.seconds : 0;
+        return timeB - timeA;
+      });
+
+      if (allReviews.length === 0) {
+        reviewsList.innerHTML = `
+          <div class="reviews-empty">
+            <div class="reviews-empty-icon">💬</div>
+            <h3 class="reviews-empty-title">Отзывов еще нет</h3>
+            <p class="reviews-empty-text">Купи услугу и напиши свой отзыв, он будет первым!</p>
+          </div>`;
+        return;
+      }
+
+      reviewsList.innerHTML = '';
+      allReviews.forEach(r => {
+        const isMine = (currentUser && r.userId === currentUser.uid) || (localStorage.getItem('myReviewId') === r.id);
+        const isPending = r.status === 'pending';
+        const isRejected = r.status === 'rejected';
+        
+        let dateStr = "Недавно";
+        if (r.createdAt) dateStr = r.createdAt.toDate().toLocaleDateString('ru-RU');
+
+        let cardClass = `review-card ${isMine ? 'my-review' : ''} `;
+        if (isPending) cardClass += 'pending-review';
+        if (isRejected) cardClass += 'rejected-review';
+
+        let statusBadge = '';
+        if (isPending) statusBadge = '<span class="pending-badge">На проверке</span>';
+        if (isRejected) statusBadge = '<span class="rejected-badge">Отклонен</span>';
+
+        const initial = r.name ? r.name.charAt(0).toUpperCase() : 'А';
+
+        const card = document.createElement('div');
+        card.className = cardClass;
+        card.innerHTML = `
+          <div class="review-header">
+            <div class="review-author-block">
+              <div class="review-avatar">${initial}</div>
+              <div>
+                <div class="review-name">${r.name} ${isMine ? '<span style="font-size:0.8rem; color:var(--accent-2);">(Вы)</span>' : ''}</div>
+                <div class="review-date">${dateStr} ${statusBadge}</div>
+              </div>
+            </div>
+            <div class="review-stars">
+              ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}
+            </div>
+          </div>
+          <div class="review-text">${r.text}</div>
+          <div class="review-footer">
+            ${r.allowContact && r.contact 
+              ? `<a href="${r.contact.startsWith('@') ? 'https://t.me/' + r.contact.replace('@','') : '#'}" target="_blank" class="review-contact-btn">Связаться с покупателем</a>`
+              : `<span class="review-no-contact"><span class="star-red">*</span> Покупатель запретил давать свои данные для связи</span>`
+            }
+          </div>
+        `;
+        reviewsList.appendChild(card);
+      });
+
+    } catch (error) {
+      console.error(error);
+      reviewsList.innerHTML = `<p style="color:var(--red); text-align:center;">Ошибка загрузки отзывов. Обновите страницу.</p>`;
+    }
+  }
+</script>
+
+</body>
+</html>

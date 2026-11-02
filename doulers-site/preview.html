@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    margin: 0; display: flex; justify-content: center; align-items: center; 
+    background: #0a0a0c; height: 100vh; overflow: hidden;
+  }
+  .banner {
+    width: 1200px; height: 630px;
+    background: radial-gradient(circle at 50% 0%, rgba(124,92,255,0.2), transparent 60%), #121216;
+    border: 2px solid #23232b;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; color: #ececf1;
+    position: relative; overflow: hidden; box-sizing: border-box;
+  }
+  .banner::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 100%, rgba(77,212,255,0.1), transparent 50%);
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif; font-size: 80px; font-weight: 700; letter-spacing: -0.03em;
+    margin-bottom: 20px; z-index: 2;
+  }
+  .logo span {
+    background: linear-gradient(90deg, #7c5cff, #4dd4ff); -webkit-background-clip: text; color: transparent;
+  }
+  .subtitle {
+    font-size: 32px; color: #8b8b96; font-weight: 400; z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="logo">DouleRs<span>.com</span></div>
+    <div class="subtitle">Создание сайтов под ключ</div>
+  </div>
+</body>
+</html>
