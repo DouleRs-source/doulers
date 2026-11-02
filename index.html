@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-<!-- ===== ТЕГИ ДЛЯ КРАСИВОГО ПРЕВЬЮ В СОЦСЕТЯХ (Open Graph) ===== -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="DouleRs.com — Создание сайтов под ключ">
 <meta property="og:description" content="Сайты-визитки, лендинги, многостраничные сайты. Скидки при запуске и бесплатные сайты за отзыв!">
@@ -203,54 +202,24 @@
   .sec-label{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px;font-weight:600}
   .sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4vw,2.9rem);letter-spacing:-.02em;font-weight:700}
 
-  /* ---------- PORTFOLIO DISCLAIMER ---------- */
+  /* ---------- PORTFOLIO CTA (НОВЫЙ БЛОК) ---------- */
+  .portfolio-cta-section { text-align: center; }
   .portfolio-disclaimer {
-    color: var(--muted);
-    font-size: .95rem;
-    line-height: 1.65;
-    margin-top: 20px;
-    padding: 16px 20px;
-    background: rgba(124, 92, 255, 0.06);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 12px 12px 0;
-    max-width: 720px;
+    color: var(--muted); font-size: .95rem; line-height: 1.65;
+    margin: 20px auto 40px; padding: 16px 20px;
+    background: rgba(124, 92, 255, 0.06); border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0; max-width: 720px; text-align: left;
   }
-  .portfolio-disclaimer strong {
-    color: var(--text);
-    font-weight: 600;
+  .portfolio-disclaimer strong { color: var(--text); font-weight: 600; }
+  .huge-cta-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 20px 48px; font-size: 1.2rem; border-radius: 999px; font-weight: 700;
+    background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #0a0a0c;
+    box-shadow: 0 10px 30px rgba(124,92,255,.4); transition: .3s;
   }
-
-  /* ---------- FILTERS ---------- */
-  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
-  .filter{
-    padding:9px 20px;border-radius:999px;font-size:.85rem;font-weight:500;
-    background:transparent;color:var(--muted);border:1px solid var(--border);
-    cursor:pointer;transition:.25s;font-family:inherit;
+  .huge-cta-btn:hover {
+    transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 40px rgba(124,92,255,.6);
   }
-  .filter:hover{color:var(--text);border-color:#3a3a45;transform:translateY(-1px)}
-  .filter.active{background:var(--text);color:var(--bg);border-color:var(--text)}
-
-  /* ---------- GRID ---------- */
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-  .card{
-    position:relative;border-radius:var(--radius);overflow:hidden;
-    background:var(--card);border:1px solid var(--border);cursor:pointer;
-    transition:.4s cubic-bezier(.2,.8,.2,1);opacity:0;transform:translateY(30px);
-  }
-  .card.reveal{opacity:1;transform:translateY(0)}
-  .card:hover{transform:translateY(-6px);border-color:#3a3a45;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-  .card-img{aspect-ratio:4/3;overflow:hidden;position:relative;background:linear-gradient(135deg,#1c1c24,#2a2a36)}
-  .card-img img{width:100%;height:100%;object-fit:cover;transition:.6s cubic-bezier(.2,.8,.2,1)}
-  .card:hover .card-img img{transform:scale(1.06)}
-  .card-body{padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-  .card-cat{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:6px}
-  .card-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:600}
-  .card-arrow{
-    width:38px;height:38px;border-radius:50%;flex-shrink:0;
-    border:1px solid var(--border);display:grid;place-items:center;
-    transition:.3s;color:var(--muted);
-  }
-  .card:hover .card-arrow{background:linear-gradient(120deg,var(--accent),var(--accent-2));border-color:transparent;color:#0a0a0c;transform:rotate(-45deg)}
 
   /* ---------- SERVICES ---------- */
   .services-heading-row{
@@ -409,12 +378,6 @@
     justify-content:flex-end;
   }
   
-  /* 
-    ЦВЕТОВАЯ ЛЕГЕНДА ЦЕН:
-    - .service-price (синий) = обычная цена
-    - .service-price.discount (оранжевый) = скидка
-    - .service-price.free (зеленый) = бесплатно
-  */
   .service-price{
     flex-shrink:0;
     font-family:'Space Grotesk',sans-serif;
@@ -584,7 +547,7 @@
   .write-link:hover{transform:translateY(-1px)}
   .write-link:hover::after{height:3px;bottom:-3px;box-shadow:0 0 12px rgba(124,92,255,.6)}
 
-  /* ---------- REVIEWS (ОБНОВЛЕНО) ---------- */
+  /* ---------- REVIEWS ---------- */
   .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
   .reviews-actions { display: flex; gap: 10px; align-items: center; }
   .auth-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 10px 20px; border-radius: 999px; cursor: pointer; font-size: .85rem; transition: .3s; font-weight: 500; font-family: inherit;}
@@ -850,7 +813,6 @@
     transition:none !important;
   }
   
-  /* НОВЫЙ СТИЛЬ ДЛЯ ССЫЛКИ НА БАГ */
   .footer-bug-link {
     color: var(--muted);
     font-size: 0.75rem;
@@ -893,7 +855,6 @@
   }
   .modal-close:hover{background:rgba(255,255,255,.18);transform:rotate(90deg)}
 
-  /* Стили для формы внутри модалки (Баг) */
   .bug-input, .bug-textarea {
     width: 100%; padding: 14px; background: var(--bg); border: 1px solid var(--border);
     border-radius: 12px; color: var(--text); font-family: inherit; font-size: .95rem; outline: none; transition: .3s;
@@ -1008,13 +969,21 @@
     }
     .nav-links.open{transform:translateY(0);visibility:visible;opacity:1}
     .burger{display:block}
-    .grid{grid-template-columns:1fr}
     .services-grid{grid-template-columns:1fr}
-    .about-grid{grid-template-columns:1fr;gap:40px}
-    .about-visual{max-width:400px;margin:0 auto;order:-1;min-height:300px;opacity:1;transform:none}
-    .about-reveal{padding:26px}
-    .about-reveal p{font-size:.88rem}
-    .about-hint::before{content:'нажми'}
+    
+    .about-grid{grid-template-columns:1fr;gap:20px}
+    .about-visual {
+      aspect-ratio: auto; min-height: auto; background: transparent; border: none;
+      box-shadow: none; cursor: default; padding: 0; overflow: visible; opacity: 1; transform: none;
+    }
+    .about-visual::before { display: none; }
+    .about-ya { display: none; }
+    .about-hint { display: none; }
+    .about-reveal {
+      position: relative; opacity: 1; transform: none; padding: 0; overflow: visible;
+    }
+    .about-reveal p { font-size: 1rem; color: var(--muted); }
+    
     section{padding:80px 0}
     footer{justify-content:center;text-align:center;flex-direction:column;}
     .modal-content{padding:24px}
@@ -1022,6 +991,7 @@
     .contact-card{min-width:100%;max-width:380px}
     .services-note{padding:18px 20px 18px 26px}
     .reviews-empty{padding:60px 22px}
+    .huge-cta-btn { width: 100%; font-size: 1.1rem; padding: 16px 24px; }
   }
   @media(max-width:600px){
     .services-heading-row{
@@ -1062,7 +1032,7 @@
     <a href="#" class="logo">DouleRs<span>.com</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#services">Услуги</a></li>
-      <li><a href="#works">Портфолио</a></li>
+      <li><a href="portfolio.html">Портфолио</a></li> <!-- ССЫЛКА НА НОВУЮ СТРАНИЦУ -->
       <li><a href="#reviews">Отзывы</a></li>
       <li><a href="#about">Обо мне</a></li>
       <li><a href="#contact">Контакты</a></li>
@@ -1084,33 +1054,28 @@
     <p>Приветствую всех на своем сайте. Здесь вы найдете работы от простой сложности до средней.</p>
     <div class="hero-cta">
       <a href="#services" class="btn btn-primary">Посмотреть услуги →</a>
-      <a href="#works" class="btn btn-ghost">Портфолио</a>
+      <a href="portfolio.html" class="btn btn-ghost">Портфолио</a>
       <a href="#contact" class="btn btn-ghost">Связаться</a>
     </div>
   </div>
-  <a href="#works" class="scroll-hint" aria-label="Вниз"><span></span></a>
+  <a href="#services" class="scroll-hint" aria-label="Вниз"><span></span></a>
 </header>
 
-<!-- WORKS -->
-<section id="works">
+<!-- WORKS (ТЕПЕРЬ ЭТО ПРОСТО БОЛЬШАЯ КНОПКА) -->
+<section id="works" class="portfolio-cta-section">
   <div class="wrap">
-    <div class="sec-head rv">
+    <div class="sec-head rv" style="margin-bottom: 20px;">
       <div class="sec-label">Портфолио</div>
-      <h2 class="sec-title">Избранные работы</h2>
+      <h2 class="sec-title">Мои работы</h2>
       <p class="portfolio-disclaimer">
         <strong>Важное уточнение:</strong> это личные проекты, сделанные для портфолио, они не выставлялись на продажу. 
         Вы можете заказать у меня сайт по аналогичным наброскам из этого портфолио — я адаптирую дизайн и функционал под ваши задачи.
       </p>
     </div>
+    
+    <!-- ОГРОМНАЯ КНОПКА -->
+    <a href="portfolio.html" class="huge-cta-btn rv" style="--d:.1s">Посмотреть мои работы →</a>
 
-    <div class="filters rv" style="--d:.1s" id="filters">
-      <button class="filter active" data-cat="all">Все</button>
-      <button class="filter" data-cat="landing">Лендинг (Сайт-визитка)</button>
-      <button class="filter" data-cat="multipage">Многостраничные</button>
-      <button class="filter" data-cat="redesign">Редизайн</button>
-    </div>
-
-    <div class="grid" id="grid"></div>
   </div>
 </section>
 
@@ -1298,7 +1263,7 @@
     <div>© <span id="year"></span> DouleRs.com. Все права защищены.</div>
     <div>Сделано с любовью<svg class="footer-heart-icon" viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
     
-    <!-- ДОБАВЛЕНО: кнопка для сообщения об ошибке -->
+    <!-- Кнопка для сообщения об ошибке -->
     <a href="#" id="reportBugBtn" class="footer-bug-link">🐞 Нашли ошибку?</a>
   
   </footer>
@@ -1312,52 +1277,6 @@
 
 <!-- ОСНОВНОЙ СКРИПТ САЙТА -->
 <script>
-/* ================= ДАННЫЕ ПРОЕКТОВ (ИСПРАВЛЕНЫ ПУТИ) ================= */
-const projects = [
-  {
-    cat: 'landing',
-    title: 'Зерно · Кофейня',
-    desc: 'Уютный, светлый лендинг для кофейни. Кремовые тона, аккуратные карточки меню, галерея и плейсхолдеры под фото.',
-    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23FAF3E8'/%3E%3Ccircle cx='400' cy='300' r='220' fill='%23F0E1CF'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='85' font-weight='bold' fill='%233D2415' text-anchor='middle'%3EЗЕРНО%3C/text%3E%3C/svg%3E",
-    link: 'zerno.html'
-  },
-  {
-    cat: 'landing',
-    title: 'Бритва · Барбершоп',
-    desc: 'Тёмный, брутальный лендинг с характером. Индустриальный стиль, сетка услуг и карточки мастеров.',
-    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%230E0E10'/%3E%3Cpath d='M0 600 L800 0 L800 600 Z' fill='%231A1A1E'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='85' font-weight='bold' fill='%23D4A259' text-anchor='middle'%3EБРИТВА%3C/text%3E%3C/svg%3E",
-    link: 'britva.html'
-  },
-  {
-    cat: 'landing',
-    title: 'Терруар · Винный бар',
-    desc: 'Редакционный стиль для винного бара. Глубокие зелёные тона, крупные серифные заголовки и акцент на атмосферу.',
-    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23121310'/%3E%3Crect x='150' y='150' width='500' height='300' fill='none' stroke='%23C9A86A' stroke-width='2'/%3E%3Ctext x='400' y='330' font-family='serif' font-size='85' font-weight='bold' fill='%23C9A86A' text-anchor='middle'%3EТЕРРУАР%3C/text%3E%3C/svg%3E",
-    link: 'terroir.html'
-  },
-  {
-    cat: 'multipage',
-    title: 'LUMEN · Фотограф',
-    desc: 'Многостраничный сайт (4 страницы). Минимализм, галерейный стиль, фильтры портфолио и плавные переходы.',
-    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23F7F5F1'/%3E%3Ccircle cx='400' cy='300' r='180' fill='none' stroke='%231C1A17' stroke-width='2'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='75' font-weight='300' letter-spacing='15' fill='%231C1A17' text-anchor='middle'%3ELUMEN%3C/text%3E%3C/svg%3E",
-    link: 'photographer/index.html'
-  },
-  {
-    cat: 'redesign',
-    title: 'Рогалик · Редизайн',
-    desc: 'Кейс редизайна: как сайт из 2010-х превратился в современную пекарню. Встроенный переключатель ДО/ПОСЛЕ.',
-    img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23FBF3E7'/%3E%3Ccircle cx='200' cy='150' r='120' fill='%23F0E1CF'/%3E%3Ccircle cx='650' cy='500' r='180' fill='%23F0E1CF'/%3E%3Ctext x='400' y='330' font-family='sans-serif' font-size='85' font-weight='bold' fill='%23C47F3B' text-anchor='middle'%3EРОГАЛИК%3C/text%3E%3C/svg%3E",
-    link: 'pekar.html'
-  }
-];
-
-const catNames = { 
-  landing: 'Лендинг (Сайт-визитка)', 
-  multipage: 'Многостраничный', 
-  rediz: 'Редизайн',
-  redesign: 'Редизайн'
-};
-
 /* ================= ЛОАДЕР ================= */
 const loader = document.getElementById('loader');
 let loaderHidden = false;
@@ -1369,67 +1288,6 @@ function hideLoader(){
 }
 window.addEventListener('load', ()=> setTimeout(hideLoader, 450));
 setTimeout(hideLoader, 1800);
-
-/* ================= РЕНДЕР ================= */
-const grid = document.getElementById('grid');
-function render(filter='all'){
-  grid.innerHTML = '';
-  projects.forEach((p, i)=>{
-    if(filter !== 'all' && p.cat !== filter) return;
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.style.transitionDelay = (i*70)+'ms';
-    el.innerHTML = `
-      <div class="card-img"><img src="${p.img}" alt="${p.title}" loading="lazy"></div>
-      <div class="card-body">
-        <div>
-          <div class="card-cat">${catNames[p.cat] || ''}</div>
-          <div class="card-title">${p.title}</div>
-        </div>
-        <div class="card-arrow">↗</div>
-      </div>`;
-    el.addEventListener('click', ()=> openModal(p));
-    grid.appendChild(el);
-  });
-  requestAnimationFrame(()=>{
-    document.querySelectorAll('.card').forEach(c=> io.observe(c));
-  });
-}
-
-/* ================= ФИЛЬТРЫ ================= */
-const filters = document.getElementById('filters');
-filters.addEventListener('click', e=>{
-  const btn = e.target.closest('.filter');
-  if(!btn) return;
-  filters.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  render(btn.dataset.cat);
-});
-
-/* ================= МОДАЛКА ================= */
-const modal = document.getElementById('modal');
-const modalBox = document.getElementById('modalBox');
-const modalClose = document.getElementById('modalClose');
-
-function openModal(p){
-  modalBox.innerHTML = `
-    <div class="modal-img"><img src="${p.img}" alt="${p.title}"></div>
-    <div class="modal-content">
-      <div class="card-cat">${catNames[p.cat] || ''}</div>
-      <h3>${p.title}</h3>
-      <p>${p.desc || ''}</p>
-      <a href="${p.link}" target="_blank" class="btn btn-primary">Открыть сайт →</a>
-    </div>`;
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(){
-  modal.classList.remove('open');
-  document.body.style.overflow = '';
-}
-modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
-document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeModal(); });
 
 /* ================= КНОПКА "В ЧЕСТЬ ЧЕГО СКИДКИ?" ================= */
 const discountInfoBtn = document.getElementById('discountInfoBtn');
@@ -1534,16 +1392,6 @@ document.querySelectorAll('.cc-go:not(.cc-go--form)').forEach(link=>{
   });
 });
 
-/* ================= ПОЯВЛЕНИЕ КАРТОЧЕК ================= */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      en.target.classList.add('reveal');
-      io.unobserve(en.target);
-    }
-  });
-}, { threshold:0.15 });
-
 /* ================= REVEAL ================= */
 const rvIO = new IntersectionObserver((entries)=>{
   entries.forEach(en=>{
@@ -1609,9 +1457,6 @@ if(hero && heroGlow){
 
 /* ================= ГОД ================= */
 document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ================= СТАРТ ================= */
-render();
 
 /* ================= ЛОГИКА КНОПКИ БАГА ================= */
 document.getElementById('reportBugBtn').addEventListener('click', (e) => {
